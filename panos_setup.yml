@@ -18,6 +18,7 @@
       debug:
         var: _panos_facts
 
+    # HTTP Server Profile
     - name: Create a HTTP Server Profile for Decryption Logs
       paloaltonetworks.panos.panos_http_profile:
         provider: "{{ panos_provider }}"
@@ -51,8 +52,8 @@
           }
     - name: Create HTTP server
       paloaltonetworks.panos.panos_http_server:
-        provider: "{{ panos_provider }}"
-        http_profile: "{{ profile_name }}"
+        provider: '{{ panos_provider }}'
+        http_profile: '{{ profile_name }}'
         name: 'my-EDA-server'
         address: "{{ httpd_address }}"
         http_method: 'GET'
@@ -60,16 +61,32 @@
 
     - name: Add a HTTP header to HTTP Server Profile
       paloaltonetworks.panos.panos_http_profile_header:
-        provider: "{{ panos_provider }}"
-        http_profile: "{{ profile_name }}"
+        provider: '{{ panos_provider }}'
+        http_profile: '{{ profile_name }}'
         log_type: 'decryption'
         header: 'Content-Type'
         value: 'application/json'
 
     - name: Add a param to the config log type
       paloaltonetworks.panos.panos_http_profile_param:
-        provider: "{{ panos_provider }}"
-        http_profile: "{{ profile_name }}"
+        provider: '{{ panos_provider }}'
+        http_profile: '{{ profile_name }}'
         log_type: 'decryption'
         param: 'serial'
         value: '$serial'
+
+    # Log Forwarding Profile
+    - name: Create log forwarding profile
+      paloaltonetworks.panos.panos_log_forwarding_profile:
+        provider: '{{ panos_provider }}'
+        name: 'EDA_LFP'
+        enhanced_logging: true
+
+    - name: Create log forwarding profile match list
+      paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
+        provider: '{{ panos_provider }}'
+        log_forwarding_profile: 'EDA_LFP'
+        name: 'eda-decryption-forwarding'
+        log_type: 'decryption'
+        filter: '( err_index neq None ) and ( proxy_type eq Forward )'
+        http_profiles: ['{{ profile_name }}']
