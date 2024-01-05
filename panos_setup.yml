@@ -4,6 +4,7 @@
   hosts: panos
   connection: local
   gather_facts: no
+  vars_files: vars/main.yml
   tasks:
     - name: Gather facts from PanOS
       paloaltonetworks.panos.panos_facts:
