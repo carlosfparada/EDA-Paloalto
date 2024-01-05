@@ -19,4 +19,4 @@
       # Remediation Template
       action:
         run_template:
-          name: "playbooks/decryption_remediation.yml"
+          name: "EDA Paloalto: auth remediation"
