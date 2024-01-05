@@ -4,6 +4,6 @@ panos_provider:
   ip_address: "{{ ansible_host }}"
   username: "{{ ansible_user }}"
   password: "{{ ansible_ssh_pass }}"
-http_profile: "my_profile"
+profile_name: "my_profile"
 httpd_address: "172.16.1.48"
 
