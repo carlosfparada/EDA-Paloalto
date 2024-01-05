@@ -8,7 +8,7 @@
   - name: Create a HTTP Server Profile for Decryption Logs
     paloaltonetworks.panos.panos_http_profile:
       provider: "{{ panos_provider }}"
-      name: '{{ profile_name }}'
+      name: "{{ profile_name }}"
       decryption_name: 'decryption-logs-to-eda'
       decryption_uri_format: 'https://test'
       decryption_payload: >
@@ -39,16 +39,16 @@
   - name: Create HTTP server
     paloaltonetworks.panos.panos_http_server:
       provider: "{{ panos_provider }}"
-      http_profile: '{{ profile_name }}'
+      http_profile: "{{ profile_name }}"
       name: 'my-EDA-server'
-      address: '192.168.1.5'
+      address: "{{ httpd_address }}"
       http_method: 'GET'
       http_port: 5000
 
   - name: Add a HTTP header to HTTP Server Profile
     paloaltonetworks.panos.panos_http_profile_header:
       provider: "{{ panos_provider }}"
-      http_profile: '{{ profile_name }}'
+      http_profile: "{{ profile_name }}"
       log_type: 'decryption'
       header: 'Content-Type'
       value: 'application/json'
@@ -56,7 +56,7 @@
   - name: Add a param to the config log type
     paloaltonetworks.panos.panos_http_profile_param:
       provider: "{{ panos_provider }}"
-      http_profile: '{{ profile_name }}'
+      http_profile: "{{ profile_name }}"
       log_type: 'decryption'
       param: 'serial'
       value: '$serial'
