@@ -91,5 +91,6 @@
         name: 'eda-decryption-forwarding'
         #log_type: 'decryption'
         log_type: 'auth'
-        filter: '( err_index neq None ) and ( proxy_type eq Forward )'
+        #filter: '( err_index neq None ) and ( proxy_type eq Forward )'
+        filter: '( user eq admin ) and ( user eq admin )'
         http_profiles: ['{{ profile_name }}']
