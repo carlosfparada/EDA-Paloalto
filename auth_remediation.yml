@@ -1,0 +1,19 @@
+---
+
+- name: Firewalls Palo Alto setup
+  hosts: panos
+  connection: local
+  gather_facts: no
+  vars_files:
+    - vars/main.yml
+  tasks:
+    - name: Gather facts from PanOS
+      paloaltonetworks.panos.panos_facts:
+        provider: "{{ panos_provider }}"
+        gather_subset: 
+          - "all" # all, system, session, interfaces, ha, routing, vr, vsys and config
+      register: _panos_facts
+
+    - name: Debug all
+      debug:
+        var: _panos_facts

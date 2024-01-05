@@ -1,0 +1,22 @@
+---
+- name: "Receive logs sourced from HTTP Server Profile in PAN-OS"
+  hosts: "localhost"
+
+  # Source 
+  sources:
+    - paloaltonetworks.panos.logs:
+        host: 0.0.0.0
+        port: 5000
+        type: decryption
+
+  # Filter Auth logs
+  rules:
+    - name: "Troubleshoot Auth Logs"
+      condition: event.meta.log_type == "auth"
+
+      ## Define the action we should take should the condition be met,
+      ## when we find a decryption log, which is to execute the
+      # Remediation Template
+      action:
+        run_template:
+          name: "playbooks/decryption_remediation.yml"
