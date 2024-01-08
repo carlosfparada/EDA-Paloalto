@@ -94,4 +94,3 @@
         #filter: '( err_index neq None ) and ( proxy_type eq Forward )'
         filter: '( user eq admin )'
         http_profiles: ['{{ profile_name }}']
-
