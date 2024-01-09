@@ -63,8 +63,8 @@
       paloaltonetworks.panos.panos_http_profile_header:
         provider: '{{ panos_provider }}'
         http_profile: '{{ profile_name }}'
-        log_type: 'decryption'
-        #log_type: 'auth'
+        #log_type: 'decryption'
+        log_type: 'auth'
         header: 'Content-Type'
         value: 'application/json'
 
