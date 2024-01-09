@@ -89,7 +89,7 @@
         provider: '{{ panos_provider }}'
         log_forwarding_profile: 'EDA_LFP'
         name: 'eda-decryption-forwarding'
-        log_type: decryption
+        log_type: auth
         filter: '( err_index neq None ) and ( proxy_type eq Forward )'
         #log_type: auth
         #filter: '( user eq "admin" )'
