@@ -6,7 +6,7 @@
     - paloaltonetworks.panos.logs:
         host: 0.0.0.0
         port: 5000
-        #type: decryption
+        type: decryption
         #type: auth
   # Filter Auth logs
   rules:
