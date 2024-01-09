@@ -93,5 +93,5 @@
         #filter: '( err_index neq None ) and ( proxy_type eq Forward )'
         log_type: auth
         #filter: '( user eq admin )'
-        filter: '*'
+        filter: '(aaa eq aaa)'
         http_profiles: ['{{ profile_name }}']
