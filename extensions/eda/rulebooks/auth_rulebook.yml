@@ -10,12 +10,12 @@
         #type: auth
   # Filter Auth logs
   rules:
-    # - name: "Debug"
-    #   condition: true == true
-    #   # Remediation Template
-    #   action:
-    #   - print_event:
-    #       pretty: true
+    - name: "Debug"
+      condition: true == true
+      # Remediation Template
+      action:
+        print_event:
+          pretty: true
     - name: "Troubleshoot Auth Logs"
       condition: event.meta.log_type == "auth"
       # Remediation Template
