@@ -24,7 +24,8 @@
         provider: "{{ panos_provider }}"
         name: "{{ profile_name }}"
         decryption_name: 'decryption-logs-to-eda'
-        decryption_uri_format: 'https://test'
+        #decryption_uri_format: 'https://test'
+        decryption_uri_format: 'http://test'
         decryption_payload: >
           {
               "category": "network",
