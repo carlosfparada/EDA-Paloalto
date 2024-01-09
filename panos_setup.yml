@@ -72,7 +72,7 @@
       paloaltonetworks.panos.panos_http_profile_param:
         provider: '{{ panos_provider }}'
         http_profile: '{{ profile_name }}'
-        #log_type: 'decryption'
+        log_type: 'decryption'
         #log_type: 'auth'
         param: 'serial'
         value: '$serial'
