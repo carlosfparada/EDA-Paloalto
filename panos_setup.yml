@@ -57,7 +57,6 @@
         http_profile: '{{ profile_name }}'
         name: 'my-EDA-server'
         address: "{{ httpd_address }}"
-        # new
         protocol: HTTP
         http_method: 'GET'
         http_port: 5000
