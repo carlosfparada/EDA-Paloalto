@@ -63,8 +63,8 @@
       paloaltonetworks.panos.panos_http_profile_header:
         provider: '{{ panos_provider }}'
         http_profile: '{{ profile_name }}'
-        #log_type: 'decryption'
-        log_type: 'auth'
+        log_type: 'decryption'
+        #log_type: 'auth'
         header: 'Content-Type'
         value: 'application/json'
 
@@ -89,8 +89,8 @@
         provider: '{{ panos_provider }}'
         log_forwarding_profile: 'EDA_LFP'
         name: 'eda-decryption-forwarding'
-        #log_type: decryption
-        log_type: auth
-        #filter: '( err_index neq None ) and ( proxy_type eq Forward )'
-        filter: '( user eq "admin" )'
+        log_type: decryption
+        filter: '( err_index neq None ) and ( proxy_type eq Forward )'
+        #log_type: auth
+        #filter: '( user eq "admin" )'
         http_profiles: ['{{ profile_name }}']
