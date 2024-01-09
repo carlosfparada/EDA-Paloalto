@@ -48,7 +48,7 @@
               "serial": "$serial",
               "sessionid": "$sessionid",
               "severity": "informational",
-              "type": "decryption"
+              "type": "auth"
           }
     - name: Create HTTP server
       paloaltonetworks.panos.panos_http_server:
