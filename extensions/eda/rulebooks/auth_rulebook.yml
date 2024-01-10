@@ -8,7 +8,7 @@
         port: 5000
         type: decryption
         #type: auth
-  # Filter Auth logs
+  # Filter decryption logs
   rules:
     - name: "Debug"
       condition: true == true
@@ -16,9 +16,9 @@
       action:
         print_event:
           pretty: true
-    - name: "Troubleshoot Auth Logs"
-      condition: event.meta.log_type == "auth"
+    - name: "Troubleshoot Decryption Logs"
+      condition: event.meta.log_type == "decryption"
       # Remediation Template
       action:
         run_template:
-          name: "EDA Paloalto: auth remediation"
+          name: "EDA Paloalto: decryption remediation"
