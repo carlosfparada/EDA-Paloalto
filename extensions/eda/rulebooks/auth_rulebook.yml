@@ -7,18 +7,18 @@
         host: 0.0.0.0
         port: 5000
         #type: decryption
-        type: config
-  # Filter decryption logs
+        #type: config
+  # Filter config logs
   rules:
     - name: "Debug"
       condition: true == true
-      # Remediation Template
+      # Config Template
       action:
         print_event:
           pretty: true
-    - name: "Troubleshoot Decryption Logs"
-      condition: event.meta.log_type == "decryption"
+    - name: "Troubleshoot Config Logs"
+      condition: event.meta.log_type == "config"
       # Remediation Template
       action:
         run_template:
-          name: "EDA Paloalto: decryption remediation"
+          name: "EDA Paloalto: config remediation"
