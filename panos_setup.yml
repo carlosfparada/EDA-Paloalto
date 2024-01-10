@@ -7,42 +7,8 @@
   vars_files:
     - vars/main.yml
   tasks:
-    # HTTP Server Profile
-    # https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-admin/monitoring/use-syslog-for-monitoring/syslog-field-descriptions/config-log-fields 
-    - name: Create a HTTP Server Profile for Config Logs
-      paloaltonetworks.panos.panos_http_profile:
-        provider: "{{ panos_provider }}"
-        name: "{{ profile_name }}"
-        config_name: 'config-logs-to-eda'
-        #decryption_uri_format: 'https://test'
-        config_uri_format: '/test'
-        config_payload: >
-          {
-            "category": "network",
-            "details": {
-              "action": "$action",
-              "app": "$app",
-              "cn": "$cn",
-              "dst": "$dst",
-              "device_name": "$device_name",
-              "error": "$error",
-              "issuer_cn": "$issuer_cn",
-              "root_cn": "$root_cn",
-              "root_status": "$root_status",
-              "sni": "$sni",
-              "src": "$src",
-              "srcuser": "$srcuser"
-            },
-            "receive_time": "$receive_time",
-            "rule": "$rule",
-            "rule_uuid": "$rule_uuid",
-            "serial": "$serial",
-            "sessionid": "$sessionid",
-            "severity": "informational",
-            "type": "config"
-          }
 
-    # - name: Create HTTP server
+      # - name: Create HTTP server
           # "receive_time": "$receive_time",
           #     "device_name": "$device_name",
           #     "serial": "$serial",
@@ -60,6 +26,41 @@
           #     "path": "$path",
           #     "result": "$result",
           #     "comment": "$comment"
+
+    # HTTP Server Profile
+    # https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-admin/monitoring/use-syslog-for-monitoring/syslog-field-descriptions/config-log-fields 
+    - name: Create a HTTP Server Profile for Config Logs
+      paloaltonetworks.panos.panos_http_profile:
+        provider: "{{ panos_provider }}"
+        name: "{{ profile_name }}"
+        config_name: 'config-logs-to-eda'
+        #decryption_uri_format: 'https://test'
+        config_uri_format: '/test'
+        config_payload: >
+          {
+              "category": "network",
+              "details": {
+                  "action": "$action",
+                  "app": "$app",
+                  "cn": "$cn",
+                  "dst": "$dst",
+                  "device_name": "$device_name",
+                  "error": "$error",
+                  "issuer_cn": "$issuer_cn",
+                  "root_cn": "$root_cn",
+                  "root_status": "$root_status",
+                  "sni": "$sni",
+                  "src": "$src",
+                  "srcuser": "$srcuser"
+              },
+              "receive_time": "$receive_time",
+              "rule": "$rule",
+              "rule_uuid": "$rule_uuid",
+              "serial": "$serial",
+              "sessionid": "$sessionid",
+              "severity": "informational",
+              "type": "config"
+          }
 
     - name: Create HTTP server
       paloaltonetworks.panos.panos_http_server:
