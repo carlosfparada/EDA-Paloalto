@@ -25,7 +25,7 @@
         name: "{{ profile_name }}"
         config_name: 'auth-logs-to-eda'
         #decryption_uri_format: 'https://test'
-        config_uri_format: 'http://test'
+        config_uri_format: '/test'
         config_payload: >
           {
               "category": "network",
@@ -57,7 +57,7 @@
         http_profile: '{{ profile_name }}'
         name: 'my-EDA-server'
         address: "{{ httpd_address }}"
-        #protocol: HTTP
+        protocol: HTTP
         http_method: 'GET'
         http_port: 5000
 
