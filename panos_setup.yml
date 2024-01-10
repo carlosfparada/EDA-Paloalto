@@ -19,6 +19,7 @@
         var: _panos_facts
 
     # HTTP Server Profile
+    # https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-admin/monitoring/use-syslog-for-monitoring/syslog-field-descriptions/config-log-fields 
     - name: Create a HTTP Server Profile for Config Logs
       paloaltonetworks.panos.panos_http_profile:
         provider: "{{ panos_provider }}"
@@ -44,6 +45,7 @@
               "cmd": "$cmd",
               "path": "$path",
               "result": "$result",
+              "comment": "$comment",
           }
     - name: Create HTTP server
       paloaltonetworks.panos.panos_http_server:
