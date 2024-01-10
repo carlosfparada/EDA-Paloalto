@@ -88,7 +88,7 @@
       paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
         provider: '{{ panos_provider }}'
         log_forwarding_profile: 'default'
-        name: 'eda-config-forwarding'
+        name: 'default'
         #log_type: config
         #filter: '( err_index neq None ) and ( proxy_type eq Forward )'
         #filter: '( user eq admin ) or ( user neq admin )'
