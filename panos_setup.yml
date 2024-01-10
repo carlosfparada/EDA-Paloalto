@@ -92,7 +92,7 @@
       paloaltonetworks.panos.panos_log_forwarding_profile:
         provider: '{{ panos_provider }}'
         name: 'Config_forward_profile'
-        enhanced_logging: true
+        #enhanced_logging: true
 
     - name: Create log forwarding profile match list
       paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
