@@ -101,7 +101,6 @@
         log_forwarding_profile: 'Config_forward_profile'
         name: 'Config_forward_profile_match_list'
         log_type: config
-        #filter: '( err_index neq None ) and ( proxy_type eq Forward )'
         #filter: '( user eq admin ) or ( user neq admin )'
         filter: '(true eq true)'
         http_profiles: ['{{ profile_name }}']
