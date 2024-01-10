@@ -23,7 +23,7 @@
       paloaltonetworks.panos.panos_http_profile:
         provider: "{{ panos_provider }}"
         name: "{{ profile_name }}"
-        config_name: 'config-logs-to-eda'
+        config_name: 'auth-logs-to-eda'
         #decryption_uri_format: 'https://test'
         config_uri_format: 'http://test'
         config_payload: >
@@ -89,7 +89,7 @@
         provider: '{{ panos_provider }}'
         log_forwarding_profile: 'EDA_LFP'
         name: 'eda-config-forwarding'
-        log_type: config
+        log_type: data
         #filter: '( err_index neq None ) and ( proxy_type eq Forward )'
         filter: '( user eq admin )'
         http_profiles: ['{{ profile_name }}']
