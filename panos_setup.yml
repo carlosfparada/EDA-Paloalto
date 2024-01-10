@@ -39,7 +39,7 @@
             "serial": "$serial",
             "sessionid": "$sessionid",
             "severity": "informational",
-            "type": "decryption"
+            "type": "config"
           }
 
     # - name: Create HTTP server
