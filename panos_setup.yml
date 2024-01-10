@@ -23,7 +23,7 @@
       paloaltonetworks.panos.panos_http_profile:
         provider: "{{ panos_provider }}"
         name: "{{ profile_name }}"
-        config_name: 'auth-logs-to-eda'
+        config_name: 'config-logs-to-eda'
         #decryption_uri_format: 'https://test'
         config_uri_format: '/test'
         config_payload: >
@@ -82,7 +82,7 @@
       paloaltonetworks.panos.panos_log_forwarding_profile:
         provider: '{{ panos_provider }}'
         name: 'default'
-        enhanced_logging: true
+        #enhanced_logging: true
 
     - name: Create log forwarding profile match list
       paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
