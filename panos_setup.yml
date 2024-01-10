@@ -34,7 +34,7 @@
               "serial": "$serial",
               "host": "$host",
               "seqno": "$seqno",
-              "type": "$type"
+              "type": "$type",
               "dg_id": "$dg_id",
               "type": "$type",
               "subtype": "$subtype",
