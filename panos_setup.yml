@@ -91,5 +91,6 @@
         name: 'eda-config-forwarding'
         #log_type: data
         #filter: '( err_index neq None ) and ( proxy_type eq Forward )'
-        filter: '( user eq admin ) or ( user neq admin )'
+        #filter: '( user eq admin ) or ( user neq admin )'
+        filter: '(true == true)'
         http_profiles: ['{{ profile_name }}']
