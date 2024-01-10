@@ -81,13 +81,13 @@
     - name: Create log forwarding profile
       paloaltonetworks.panos.panos_log_forwarding_profile:
         provider: '{{ panos_provider }}'
-        name: 'EDA_LFP'
+        name: 'default'
         enhanced_logging: true
 
     - name: Create log forwarding profile match list
       paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
         provider: '{{ panos_provider }}'
-        log_forwarding_profile: 'EDA_LFP'
+        log_forwarding_profile: 'default'
         name: 'eda-config-forwarding'
         #log_type: data
         #filter: '( err_index neq None ) and ( proxy_type eq Forward )'
