@@ -81,14 +81,14 @@
     - name: Create log forwarding profile
       paloaltonetworks.panos.panos_log_forwarding_profile:
         provider: '{{ panos_provider }}'
-        name: 'default'
+        name: 'Config_forward_profile'
         #enhanced_logging: true
 
     - name: Create log forwarding profile match list
       paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
         provider: '{{ panos_provider }}'
-        log_forwarding_profile: 'default'
-        name: 'default'
+        log_forwarding_profile: 'Config_forward_profile'
+        name: 'Config_forward_profile_match_list'
         #log_type: config
         #filter: '( err_index neq None ) and ( proxy_type eq Forward )'
         #filter: '( user eq admin ) or ( user neq admin )'
