@@ -98,7 +98,7 @@
       paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
         provider: '{{ panos_provider }}'
         log_forwarding_profile: 'Config_forward_profile'
-        name: 'Config_forward_profile_match_list'
+        name: 'Config_forward_profile_ML'
         #log_type: config
         #filter: '( user eq admin ) or ( user neq admin )'
         filter: '(true eq true)'
