@@ -100,8 +100,8 @@
         log_forwarding_profile: 'Config_forward_profile'
         name: 'Config_forward_profile_ML'
         #log_type: config
-        #filter: '( user eq admin ) or ( user neq admin )'
-        filter: '(true eq true)'
+        filter: '( user eq admin ) or ( user neq admin )'
+        #filter: '(true eq true)'
         http_profiles: ['{{ profile_name }}']
 
     - name: Commit configuration
