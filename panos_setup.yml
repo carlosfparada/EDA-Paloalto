@@ -29,23 +29,23 @@
         config_uri_format: '/test'
         config_payload: >
           {
-              # "receive_time": "$receive_time",
-              # "device_name": "$device_name",
-              # "serial": "$serial",
-              # "host": "$host",
-              # "seqno": "$seqno",
-              # "type": "$type"
-              # "dg_id": "$dg_id",
-              # "type": "$type",
-              # "subtype": "$subtype",
-              # "vsys": "$vsys",
-              # "vsys_name": "$vsys_name",
-              # "admin": "$admin",
-              # "client": "$client",
-              # "cmd": "$cmd",
-              # "path": "$path",
-              # "result": "$result",
-              # "comment": "$comment"
+              "receive_time": "$receive_time",
+              "device_name": "$device_name",
+              "serial": "$serial",
+              "host": "$host",
+              "seqno": "$seqno",
+              "type": "$type"
+              "dg_id": "$dg_id",
+              "type": "$type",
+              "subtype": "$subtype",
+              "vsys": "$vsys",
+              "vsys_name": "$vsys_name",
+              "admin": "$admin",
+              "client": "$client",
+              "cmd": "$cmd",
+              "path": "$path",
+              "result": "$result",
+              "comment": "$comment"
           }
 
     - name: Create HTTP server
