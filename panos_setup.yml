@@ -8,7 +8,7 @@
     - vars/main.yml
   tasks:
       # - name: Create HTTP server
-          # "receive_time": "$receive_time",
+          #     "receive_time": "$receive_time",
           #     "device_name": "$device_name",
           #     "serial": "$serial",
           #     "host": "$host",
@@ -99,7 +99,7 @@
         provider: '{{ panos_provider }}'
         log_forwarding_profile: 'Config_forward_profile'
         name: 'Config_forward_profile_match_list'
-        log_type: config
+        #log_type: config
         #filter: '( user eq admin ) or ( user neq admin )'
         filter: '(true eq true)'
         http_profiles: ['{{ profile_name }}']
