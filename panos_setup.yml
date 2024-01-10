@@ -19,14 +19,14 @@
         var: _panos_facts
 
     # HTTP Server Profile
-    - name: Create a HTTP Server Profile for Decryption Logs
+    - name: Create a HTTP Server Profile for Config Logs
       paloaltonetworks.panos.panos_http_profile:
         provider: "{{ panos_provider }}"
         name: "{{ profile_name }}"
-        decryption_name: 'decryption-logs-to-eda'
+        config_name: 'config-logs-to-eda'
         #decryption_uri_format: 'https://test'
-        decryption_uri_format: 'http://test'
-        decryption_payload: >
+        config_uri_format: 'http://test'
+        config_payload: >
           {
               "category": "network",
               "details": {
@@ -49,7 +49,7 @@
               "serial": "$serial",
               "sessionid": "$sessionid",
               "severity": "informational",
-              "type": "decryption"
+              "type": "config"
           }
     - name: Create HTTP server
       paloaltonetworks.panos.panos_http_server:
@@ -65,8 +65,7 @@
       paloaltonetworks.panos.panos_http_profile_header:
         provider: '{{ panos_provider }}'
         http_profile: '{{ profile_name }}'
-        log_type: 'decryption'
-        #log_type: 'auth'
+        log_type: 'config'
         header: 'Content-Type'
         value: 'application/json'
 
@@ -74,8 +73,7 @@
       paloaltonetworks.panos.panos_http_profile_param:
         provider: '{{ panos_provider }}'
         http_profile: '{{ profile_name }}'
-        log_type: 'decryption'
-        #log_type: 'auth'
+        log_type: 'config'
         param: 'serial'
         value: '$serial'
 
@@ -90,11 +88,8 @@
       paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
         provider: '{{ panos_provider }}'
         log_forwarding_profile: 'EDA_LFP'
-        name: 'eda-decryption-forwarding'
-        #log_type: decryption
-        log_type: traffic
-        filter: '( err_index neq None ) and ( proxy_type eq Forward )'
-        #log_type: auth
-        #filter: '( user eq admin )'
-        filter: '(user eq admin) or (user neq admin)'
+        name: 'eda-config-forwarding'
+        log_type: config
+        #filter: '( err_index neq None ) and ( proxy_type eq Forward )'
+        filter: '( user eq admin )'
         http_profiles: ['{{ profile_name }}']
