@@ -103,3 +103,7 @@
         #filter: '( user eq admin ) or ( user neq admin )'
         filter: '(true eq true)'
         http_profiles: ['{{ profile_name }}']
+
+    - name: Commit configuration
+      paloaltonetworks.panos.panos_commit_firewall:
+        provider: "{{ panos_provider }}"
