@@ -34,7 +34,9 @@
               "cmd": "$cmd",
               "path": "$path",
               "result": "$result",
-              "comment": "$comment"
+              "comment": "$comment",
+              "before_change_detail": "$before-change-detail",
+              "after_change_detail": "$after-change-detail"
           }
 
     - name: Create HTTP server
