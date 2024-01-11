@@ -18,7 +18,8 @@
     #     # print_event:
     #     #   pretty: true
     - name: "Troubleshoot Config Logs"
-      condition: event.payload.type == "CONFIG"
+      condition: true == true
+      #condition: event.payload.type == "CONFIG"
       # Remediation Template
       action:
         # debug: 
