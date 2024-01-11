@@ -26,7 +26,7 @@
         #   var: event.payload
         run_job_template:
           organization: "Default"
-          name: "EDA Paloalto config remediation"
+          name: "EDA Paloalto: config remediation"
           job_args:
             extra_vars:
               payload: "{{ event.payload }}"
