@@ -7,6 +7,13 @@
   vars_files:
     - vars/main.yml
   tasks:
+    - name: Create admin user for manual changes
+      paloaltonetworks.panos.panos_administrator:
+        provider: '{{ panos_provider }}'
+        admin_username: 'adminmanual'
+        admin_password: 'Cisco123'
+        superuser: true
+      
     # HTTP Server Profile
     # https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-admin/monitoring/use-syslog-for-monitoring/syslog-field-descriptions/config-log-fields 
     - name: Create a HTTP Server Profile for Config Logs
