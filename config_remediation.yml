@@ -32,7 +32,7 @@
       #   state: absent
       #   rule_name: 'Rule X'
       debug: 
-        msg: "{{ ansible_eda.event.payload.path | regex_search('rulebase security rules  (.*)')}}"
+        msg: "{{ ansible_eda.event.payload.path | regex_search('rulebase security rules  (.*)','\\1')}}"
       when:
         - ansible_eda.event.payload.admin == "adminmanual"
         - ansible_eda.event.payload.cmd == "set"
