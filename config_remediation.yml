@@ -13,9 +13,9 @@
 
     - name: Debug
       include_tasks: rule_main.yml
-      # when:
-      #   - ansible_eda.event.payload.admin == "adminmanual"
-      #   - ansible_eda.event.payload.cmd == "delete"
-      #   - ansible_eda.event.payload.result == "Succeeded"
-      #   - '"rulebase security rules" in ansible_eda.event.payload.path'
+      when:
+        - ansible_eda.event.payload.admin == "adminmanual"
+        - ansible_eda.event.payload.cmd == "delete"
+        - ansible_eda.event.payload.result == "Succeeded"
+        - '"rulebase security rules" in ansible_eda.event.payload.path'
 
