@@ -9,7 +9,7 @@
   tasks:
     - name: Debug all
       debug:
-        var: payload
+        var: event
 
     - name: Gather facts from PanOS
       paloaltonetworks.panos.panos_facts:
