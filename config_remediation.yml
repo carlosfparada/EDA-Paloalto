@@ -21,13 +21,6 @@
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
 
-    - name: Gather facts from PanOS
-      paloaltonetworks.panos.panos_facts:
-        provider: "{{ panos_provider }}"
-        gather_subset: 
-          - "all" # all, system, session, interfaces, ha, routing, vr, vsys and config
-      register: _panos_facts
-
     - name: Remediation - delete added rules
       paloaltonetworks.panos.panos_security_rule:
         provider: '{{ panos_provider }}'
