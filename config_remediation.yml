@@ -6,6 +6,8 @@
   gather_facts: no
   vars_files:
     - vars/main.yml
+  vars:
+    payload: "{{ ansible_eda.event.payload }}"
   tasks:
     - name: Remediation - Debug EDA Event
       debug:
@@ -14,10 +16,10 @@
     - name: Remediation - restore deleted rules
       include_tasks: rule_main.yml
       when:
-        - ansible_eda.event.payload.admin == "adminmanual"
-        - ansible_eda.event.payload.cmd == "delete"
-        - ansible_eda.event.payload.result == "Succeeded"
-        - '"rulebase security rules" in ansible_eda.event.payload.path'
+        - payload.admin == "adminmanual"
+        - payload.cmd == "delete"
+        - payload.result == "Succeeded"
+        - '"rulebase security rules" in payload.path'
 
     - name: Gather facts from PanOS
       paloaltonetworks.panos.panos_facts:
@@ -32,9 +34,9 @@
       #   state: absent
       #   rule_name: 'Rule X'
       debug: 
-        msg: "{{ ansible_eda.event.payload.path | regex_search('.*rulebase security rules  (.*)','\\1') | first}}"
+        msg: "{{ payload.path | regex_search('.*rulebase security rules  (.*)','\\1') | first}}"
       when:
-        - ansible_eda.event.payload.admin == "adminmanual"
-        - ansible_eda.event.payload.cmd == "set"
-        - ansible_eda.event.payload.result == "Succeeded"
-        - '"rulebase security rules" in ansible_eda.event.payload.path'
+        - payload.admin == "adminmanual"
+        - payload.cmd == "set"
+        - payload.result == "Succeeded"
+        - '"rulebase security rules" in payload.path'
