@@ -19,8 +19,8 @@
         - debug: 
             var: event.payload
         - run_job_template:
-          organization: "Default"
-          name: "EDA Paloalto: config remediation"
-          job_args:
-            extra_vars:
-              payload: "{{ event.payload }}"
+            organization: "Default"
+            name: "EDA Paloalto: config remediation"
+            job_args:
+              extra_vars:
+                payload: "{{ event.payload }}"
