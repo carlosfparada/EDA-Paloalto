@@ -14,8 +14,10 @@
       condition: true == true
       # Config Template
       action:
-        print_event:
-          pretty: true
+        debug: 
+          var: event.meta
+        # print_event:
+        #   pretty: true
     - name: "Troubleshoot Config Logs"
       condition: event.meta.log_type == "config"
       # Remediation Template
