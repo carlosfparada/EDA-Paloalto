@@ -24,7 +24,7 @@
       action:
         # debug: 
         #   var: event.payload
-        run_template:
+        run_job_template:
           organization: Default
           name: "EDA Paloalto: config remediation"
           job_args:
