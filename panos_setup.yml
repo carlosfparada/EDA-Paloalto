@@ -37,28 +37,23 @@
         config_uri_format: '/test'
         config_payload: >
           {
-              "category": "network",
-              "details": {
-                  "action": "$action",
-                  "app": "$app",
-                  "cn": "$cn",
-                  "dst": "$dst",
-                  "device_name": "$device_name",
-                  "error": "$error",
-                  "issuer_cn": "$issuer_cn",
-                  "root_cn": "$root_cn",
-                  "root_status": "$root_status",
-                  "sni": "$sni",
-                  "src": "$src",
-                  "srcuser": "$srcuser"
-              },
               "receive_time": "$receive_time",
-              "rule": "$rule",
-              "rule_uuid": "$rule_uuid",
+              "device_name": "$device_name",
               "serial": "$serial",
-              "sessionid": "$sessionid",
-              "severity": "informational",
-              "type": "config"
+              "host": "$host",
+              "seqno": "$seqno",
+              "type": "$type",
+              "dg_id": "$dg_id",
+              "type": "$type",
+              "subtype": "$subtype",
+              "vsys": "$vsys",
+              "vsys_name": "$vsys_name",
+              "admin": "$admin",
+              "client": "$client",
+              "cmd": "$cmd",
+              "path": "$path",
+              "result": "$result",
+              "comment": "$comment"
           }
 
     - name: Create HTTP server
