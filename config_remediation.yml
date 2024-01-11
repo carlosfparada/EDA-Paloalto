@@ -11,13 +11,22 @@
       debug:
         var: ansible_eda.event
 
-    - name: Gather facts from PanOS
-      paloaltonetworks.panos.panos_facts:
-        provider: "{{ panos_provider }}"
-        gather_subset: 
-          - "all" # all, system, session, interfaces, ha, routing, vr, vsys and config
-      register: _panos_facts
-
-    - name: Debug all
+    - name: Debug
       debug:
-        var: _panos_facts
+        msg: "HIT"
+      when:
+        - ansible_eda.event.playload.client == "CLI"
+        - ansible_eda.event.playload.cmd == "delete"
+        - ansible_eda.event.playload.result == "Succeeded"
+        - '"rulebase security rules" in ansible_eda.event.playload.path'
+
+    # - name: Gather facts from PanOS
+    #   paloaltonetworks.panos.panos_facts:
+    #     provider: "{{ panos_provider }}"
+    #     gather_subset: 
+    #       - "all" # all, system, session, interfaces, ha, routing, vr, vsys and config
+    #   register: _panos_facts
+
+    # - name: Debug all
+    #   debug:
+    #     var: _panos_facts
