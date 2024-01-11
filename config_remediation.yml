@@ -12,21 +12,11 @@
         var: ansible_eda.event
 
     - name: Debug
-      debug:
-        msg: "HIT"
+      include_tasks:
+        - rule_main.yml
       when:
         - ansible_eda.event.payload.admin == "adminmanual"
         - ansible_eda.event.payload.cmd == "delete"
         - ansible_eda.event.payload.result == "Succeeded"
         - '"rulebase security rules" in ansible_eda.event.payload.path'
 
-    # - name: Gather facts from PanOS
-    #   paloaltonetworks.panos.panos_facts:
-    #     provider: "{{ panos_provider }}"
-    #     gather_subset: 
-    #       - "all" # all, system, session, interfaces, ha, routing, vr, vsys and config
-    #   register: _panos_facts
-
-    # - name: Debug all
-    #   debug:
-    #     var: _panos_facts
