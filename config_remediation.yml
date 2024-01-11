@@ -15,7 +15,7 @@
       debug:
         msg: "HIT"
       when:
-        #- ansible_eda.event.payload.client == "CLI"
+        - ansible_eda.event.payload.admin == "adminmanual"
         - ansible_eda.event.payload.cmd == "delete"
         - ansible_eda.event.payload.result == "Succeeded"
         - '"rulebase security rules" in ansible_eda.event.payload.path'
