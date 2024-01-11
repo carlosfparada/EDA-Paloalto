@@ -6,7 +6,7 @@
     - paloaltonetworks.panos.logs:
         host: 0.0.0.0
         port: 5000
-        #type: config
+        type: config
   # Rule config logs
   rules:
     - name: "Handle Config Logs"
