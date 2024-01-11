@@ -15,10 +15,10 @@
       debug:
         msg: "HIT"
       when:
-        - ansible_eda.event.playload.client == "CLI"
-        - ansible_eda.event.playload.cmd == "delete"
-        - ansible_eda.event.playload.result == "Succeeded"
-        - '"rulebase security rules" in ansible_eda.event.playload.path'
+        - ansible_eda.event.payload.client == "CLI"
+        - ansible_eda.event.payload.cmd == "delete"
+        - ansible_eda.event.payload.result == "Succeeded"
+        - '"rulebase security rules" in ansible_eda.event.payload.path'
 
     # - name: Gather facts from PanOS
     #   paloaltonetworks.panos.panos_facts:
