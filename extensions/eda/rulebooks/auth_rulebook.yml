@@ -9,24 +9,18 @@
         #type: config
   # Filter config logs
   rules:
-    # - name: "Debug"
-    #   condition: true == true
-    #   # Config Template
-    #   action:
-    #     debug: 
-    #       var: event
-    #     # print_event:
-    #     #   pretty: true
     - name: "Troubleshoot Config Logs"
       condition: true == true
       #condition: event.payload.type == "CONFIG"
       # Remediation Template
-      action:
-        # debug: 
-        #   var: event.payload
-        run_job_template:
+      actions:
+        - print_event:
+            pretty: true
+        - debug: 
+            var: event.payload
+        - run_job_template:
           organization: "Default"
           name: "EDA Paloalto: config remediation"
           job_args:
             extra_vars:
-              payload: "{{ event.payload }}"
+              payload: "{{ event }}"
