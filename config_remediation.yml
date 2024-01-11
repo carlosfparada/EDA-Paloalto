@@ -9,7 +9,7 @@
   tasks:
     - name: Debug all
       debug:
-        var: event
+        var: ansible_eda.event
 
     - name: Gather facts from PanOS
       paloaltonetworks.panos.panos_facts:
