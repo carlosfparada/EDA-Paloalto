@@ -29,12 +29,12 @@
       register: _panos_facts
 
     - name: Remediation - delete added rules
-      # paloaltonetworks.panos.panos_security_rule:
-      #   provider: '{{ panos_provider }}'
-      #   state: absent
-      #   rule_name: 'Rule X'
-      debug: 
-        msg: "{{ payload.path | regex_search('.*rulebase security rules  (.*)','\\1') | first}}"
+      paloaltonetworks.panos.panos_security_rule:
+        provider: '{{ panos_provider }}'
+        state: absent
+        rule_name: "{{ payload.path | regex_search('.*rulebase security rules  (.*)','\\1') | first}}"
+      # debug: 
+      #   msg: "{{ payload.path | regex_search('.*rulebase security rules  (.*)','\\1') | first}}"
       when:
         - payload.admin == "adminmanual"
         - payload.cmd == "set"
