@@ -25,7 +25,7 @@
       #   state: absent
       #   rule_name: 'Rule X'
       debug: 
-        var: ansible_eda.event.payload.after_change_detail.split('{')[0]
+        var: ansible_eda.event.payload.after_change_detail.split('{')[0].split(' ')
       when:
         - ansible_eda.event.payload.admin == "adminmanual"
         - ansible_eda.event.payload.cmd == "set"
