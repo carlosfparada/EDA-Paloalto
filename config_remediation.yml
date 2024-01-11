@@ -11,7 +11,7 @@
       debug:
         var: ansible_eda.event
 
-    - name: Debug
+    - name: Remediation - restore deleted rules
       include_tasks: rule_main.yml
       when:
         - ansible_eda.event.payload.admin == "adminmanual"
@@ -19,3 +19,15 @@
         - ansible_eda.event.payload.result == "Succeeded"
         - '"rulebase security rules" in ansible_eda.event.payload.path'
 
+    - name: Remediation - delete added rules
+      # paloaltonetworks.panos.panos_security_rule:
+      #   provider: '{{ panos_provider }}'
+      #   state: absent
+      #   rule_name: 'Rule X'
+      debug: 
+        var: ansible_eda.event.payload.after_change_detail
+      when:
+        - ansible_eda.event.payload.admin == "adminmanual"
+        - ansible_eda.event.payload.cmd == "set"
+        - ansible_eda.event.payload.result == "Succeeded"
+        - '"rulebase security rules" in ansible_eda.event.payload.path'
