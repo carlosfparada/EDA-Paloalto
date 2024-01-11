@@ -15,7 +15,7 @@
       # Config Template
       action:
         debug: 
-          var: event.meta
+          var: event
         # print_event:
         #   pretty: true
     - name: "Troubleshoot Config Logs"
