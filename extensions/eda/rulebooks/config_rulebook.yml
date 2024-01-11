@@ -14,20 +14,20 @@
       #condition: event.payload.type == "CONFIG"
       # Remediation Template
       actions:
-        run_job_template:
-          organization: "Default"
-          name: "EDA Paloalto: config remediation"
-          # job_args:
-          #   extra_vars:
-          #     payload: "{{ event.payload }}"
-      # actions:
-      #   - print_event:
-      #       pretty: true
-      #   - debug: 
-      #       var: event.payload
-      #   - run_job_template:
-      #       organization: "Default"
-      #       name: "EDA Paloalto: config remediation"
-      #       job_args:
-      #         extra_vars:
-      #           payload: "{{ event.payload }}"
+        # run_job_template:
+        #   organization: "Default"
+        #   name: "EDA Paloalto: config remediation"
+        #   # job_args:
+        #   #   extra_vars:
+        #   #     payload: "{{ event.payload }}"
+      actions:
+        - print_event:
+            pretty: true
+        - debug: 
+            var: event.payload.type
+        - run_job_template:
+            organization: "Default"
+            name: "EDA Paloalto: config remediation"
+            job_args:
+              extra_vars:
+                payload: "{{ event.payload }}"
