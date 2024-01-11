@@ -21,7 +21,11 @@
       condition: event.payload.type == "CONFIG"
       # Remediation Template
       action:
-        debug: 
-          var: event.payload
-        # run_template:
-        #   name: "EDA Paloalto: config remediation"
+        # debug: 
+        #   var: event.payload
+        run_template:
+          organization: Default
+          name: "EDA Paloalto: config remediation"
+          job_args:
+            extra_vars:
+              payload: "{{ event.payload }}"
