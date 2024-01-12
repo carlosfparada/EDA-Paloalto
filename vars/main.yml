@@ -4,13 +4,19 @@ panos_provider:
   ip_address: "{{ ansible_host }}"
   username: "{{ ansible_user }}"
   password: "{{ ansible_ssh_pass }}"
+admin_username: 'adminmanual'
+admin_password: 'Cisco123'
 profile_name: "HTTP Profile"
 config_profile_name: 'Config HTTP Profile'
 http_server_name: 'HTTP Server'
 httpd_address: "172.16.1.48"
+httpd_protocol: "HTTP"
+http_method: 'POST'
+httpd_port: 5000
 forwarding_profile_name: 'Config Forward Profile'
 forwarding_profile_name_match_list: 'Config Forward Profile Match List'
 log_filter: "All Logs"
+config_log_name: "Config Logs"
 
 panos_services:
   dns-tcp: service-dns-tcp

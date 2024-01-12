@@ -29,8 +29,8 @@
     - name: Create admin user for manual changes
       paloaltonetworks.panos.panos_administrator:
         provider: '{{ panos_provider }}'
-        admin_username: 'adminmanual'
-        admin_password: 'Cisco123'
+        admin_username: '{{ admin_username }}'
+        admin_password: '{{ admin_password }}'
         superuser: true
       
     # HTTP Server Profile
@@ -70,9 +70,9 @@
         http_profile: '{{ profile_name }}'
         name: '{{ http_server_name }}'
         address: "{{ httpd_address }}"
-        protocol: HTTP
-        http_method: 'POST'
-        http_port: 5000
+        protocol: "{{ httpd_protocol }}"
+        http_method: "{{ httpd_method }}"
+        http_port: "{{ httpd_port }}"
 
     - name: Add a HTTP header to HTTP Server Profile
       paloaltonetworks.panos.panos_http_profile_header:
@@ -109,12 +109,12 @@
     - name: Forward Config Logs to EDA source
       paloaltonetworks.panos.panos_type_cmd:
         provider: '{{ panos_provider }}'
-        cmd: set
+        cmd: set  # default
         xpath: "/config/shared/log-settings/config/match-list"
         element: |
-          <entry name="Config Logs">
+          <entry name="{{ config_log_name }}">
             <send-http>
-              <member>my_profile</member>
+              <member>{{ profile_name }}</member>
             </send-http>
             <filter>{{ log_filter }}</filter>
           </entry>
