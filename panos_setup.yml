@@ -104,8 +104,8 @@
         log_forwarding_profile: 'Config Forward Profile'
         name: 'Config Forward Profile Match List'
         #log_type: config
-        filter: '( user eq admin ) or ( user eq adminmanual )'
-        #filter: '(true eq true)'
+        #filter: '( user eq admin ) or ( user eq adminmanual )'
+        filter: "All Logs"
         http_profiles: ['{{ profile_name }}']
 
     # # set shared log-settings config match-list "Config Logs" filter "All Logs" send-http {{ profile_name }}
