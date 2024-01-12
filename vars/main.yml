@@ -6,15 +6,15 @@ panos_provider:
   password: "{{ ansible_ssh_pass }}"
 admin_username: 'adminmanual'
 admin_password: 'Cisco123'
-profile_name: "HTTP Profile"
-config_profile_name: 'Config HTTP Profile'
-http_server_name: 'HTTP Server'
+profile_name: "EDA HTTP Profile"
+config_profile_name: 'EDA Config HTTP Profile'
+http_server_name: 'EDA HTTP Server'
 http_address: "172.16.1.48"
 http_protocol: "HTTP"
 http_method: 'POST'
 http_port: 5000
-forwarding_profile_name: 'Config Forward Profile'
-forwarding_profile_name_match_list: 'Config Forward Profile Match List'
+forwarding_profile_name: 'EDA Config Forward Profile'
+forwarding_profile_name_match_list: 'EDA Config Forward Profile Match List'
 log_filter: "All Logs"
 config_log_name: "Config Logs"
 
