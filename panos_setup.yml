@@ -106,19 +106,19 @@
         filter: "All Logs"
         http_profiles: ['{{ profile_name }}']
 
-    # # set shared log-settings config match-list "Config Logs" filter "All Logs" send-http {{ profile_name }}
-    # - name: Forward Config Logs to EDA source
-    #   paloaltonetworks.panos.panos_type_cmd:
-    #     provider: '{{ panos_provider }}'
-    #     cmd: set
-    #     xpath: "/config/shared/log-settings/config/match-list"
-    #     element: |
-    #       <entry name="Config Logs">
-    #         <send-http>
-    #           <member>my_profile</member>
-    #         </send-http>
-    #         <filter>All Logs</filter>
-    #       </entry>
+    # set shared log-settings config match-list "Config Logs" filter "All Logs" send-http {{ profile_name }}
+    - name: Forward Config Logs to EDA source
+      paloaltonetworks.panos.panos_type_cmd:
+        provider: '{{ panos_provider }}'
+        cmd: set
+        xpath: "/config/shared/log-settings/config/match-list"
+        element: |
+          <entry name="Config Logs">
+            <send-http>
+              <member>my_profile</member>
+            </send-http>
+            <filter>All Logs</filter>
+          </entry>
 
     - name: Commit configuration
       paloaltonetworks.panos.panos_commit_firewall:
