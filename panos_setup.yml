@@ -98,7 +98,9 @@
         element: |
           <entry name="Config Logs2">
             <filter>All Logs</filter>
-            <send-http name="my_profile"/>
+            <send-http>
+              <member>my_profile</member>
+            </send-http>
           </entry>
 
     - name: Commit configuration
