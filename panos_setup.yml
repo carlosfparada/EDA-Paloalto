@@ -23,7 +23,7 @@
   vars_files:
     - vars/main.yml
   tasks:
-    - name: Create some rules
+    - name: Create policy rules
       include_tasks: rule_main.yml
 
     - name: Create admin user for manual changes
@@ -39,8 +39,7 @@
       paloaltonetworks.panos.panos_http_profile:
         provider: "{{ panos_provider }}"
         name: "{{ profile_name }}"
-        config_name: 'config-logs-to-eda'
-        #decryption_uri_format: 'https://test'
+        config_name: "{{ config_profile_name }}"
         config_uri_format: '/test'
         config_payload: >
           {
@@ -69,7 +68,7 @@
       paloaltonetworks.panos.panos_http_server:
         provider: '{{ panos_provider }}'
         http_profile: '{{ profile_name }}'
-        name: 'EDA-Server'
+        name: '{{ http_server_name }}'
         address: "{{ httpd_address }}"
         protocol: HTTP
         http_method: 'POST'
@@ -95,15 +94,15 @@
     - name: Create log forwarding profile
       paloaltonetworks.panos.panos_log_forwarding_profile:
         provider: '{{ panos_provider }}'
-        name: 'Config Forward Profile'
+        name: '{{ forwarding_profile_name }}'
 
     - name: Create log forwarding profile match list
       paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
         provider: '{{ panos_provider }}'
-        log_forwarding_profile: 'Config Forward Profile'
-        name: 'Config Forward Profile Match List'
-        #log_type: traffic
-        filter: "All Logs"
+        log_forwarding_profile: '{{ forwarding_profile_name }}'
+        name: '{{ forwarding_profile_name_match_list }}'
+        #log_type: traffic  # default
+        filter: '{{ log_filter }}'
         http_profiles: ['{{ profile_name }}']
 
     # set shared log-settings config match-list "Config Logs" filter "All Logs" send-http {{ profile_name }}
@@ -117,7 +116,7 @@
             <send-http>
               <member>my_profile</member>
             </send-http>
-            <filter>All Logs</filter>
+            <filter>{{ log_filter }}</filter>
           </entry>
 
     - name: Commit configuration
