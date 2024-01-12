@@ -2,6 +2,7 @@
 #
 ## PANOS SETUP
 # Login to the device with the default username and password (admin/admin). 
+# It may take some time until login works!
 # When asked, set new password as follows:
 #   admin/Cisco123
 # Enter configuration mode
