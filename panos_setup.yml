@@ -97,10 +97,10 @@
         xpath: "/config/shared/log-settings/config/match-list"
         element: |
           <entry name="Config Logs">
-            <filter>All Logs</filter>
             <send-http>
               <member>my_profile</member>
             </send-http>
+            <filter>All Logs</filter>
           </entry>
 
     - name: Commit configuration
