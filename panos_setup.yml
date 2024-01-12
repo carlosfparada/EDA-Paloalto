@@ -93,7 +93,7 @@
     - name: Forward Config Logs to EDA source
       paloaltonetworks.panos.panos_type_cmd:
         provider: '{{ panos_provider }}'
-        cmd: "set shared log-settings config match-list 'Config Logs' filter 'All Logs' send-http {{ profile_name }}"
+        cmd: "set"
         xpath: "shared log-settings config match-list 'Config Logs' filter 'All Logs' send-http {{ profile_name }}"
           
     - name: Commit configuration
