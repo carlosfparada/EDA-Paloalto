@@ -94,6 +94,7 @@
       paloaltonetworks.panos.panos_op:
         provider: '{{ panos_provider }}'
         cmd_is_xml: false
+        cmd: configure
         cmd: show interfaces all
         #cmd: 'set shared log-settings config match-list "Config Logs" filter "All Logs" send-http {{ profile_name }}'
           
