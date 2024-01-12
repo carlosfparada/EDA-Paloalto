@@ -96,9 +96,9 @@
         #cmd: 'set shared log-settings config match-list "Config Logs" filter "All Logs" send-http {{ profile_name }}'
         xpath: "/config/shared/log-settings/config/match-list"
         element: |
-          <entry name="Config Logs">
+          <entry name="Config Logs2">
             <filter>All Logs</filter>
-            <send-http>my_profile</send-http>
+            <send-http name="my_profile"></send-http>
           </entry>
 
     - name: Commit configuration
