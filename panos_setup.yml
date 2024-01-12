@@ -15,6 +15,11 @@
 # Exit configuration mode by using the command exit and then confirm the configurations by running the command show interface management within configuration mode
 # admin@fw> show interface management
 # admin@fw> show system info
+#
+# DEMO
+# RUN panos_setup
+# START EDA Rule activation
+# add/delete policy rules: they will remain unchanged
 
 - name: Firewalls Palo Alto setup
   hosts: panos
