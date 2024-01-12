@@ -95,14 +95,14 @@
     - name: Create log forwarding profile
       paloaltonetworks.panos.panos_log_forwarding_profile:
         provider: '{{ panos_provider }}'
-        name: 'Config_forward_profile'
+        name: 'Config Forward Profile'
         #enhanced_logging: true
 
     - name: Create log forwarding profile match list
       paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
         provider: '{{ panos_provider }}'
-        log_forwarding_profile: 'Config_forward_profile'
-        name: 'Config_forward_profile_ML'
+        log_forwarding_profile: 'Config Forward Profile'
+        name: 'Config Forward Profile Match List'
         #log_type: config
         #filter: '( user eq admin ) or ( user neq admin )'
         filter: '(true eq true)'
