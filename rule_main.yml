@@ -9,7 +9,3 @@
     label: "{{ _rule.name }}"
     loop_var: _rule
   when: fw_rules | length > 0 
-
-- name: Commit configuration
-  paloaltonetworks.panos.panos_commit_firewall:
-    provider: "{{ panos_provider }}"
