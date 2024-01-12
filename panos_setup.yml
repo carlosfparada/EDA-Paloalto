@@ -73,21 +73,23 @@
         value: '$serial'
 
     # Log Forwarding Profile
-    # - name: Create log forwarding profile
-    #   paloaltonetworks.panos.panos_log_forwarding_profile:
-    #     provider: '{{ panos_provider }}'
-    #     name: 'Config_forward_profile'
-    #     #enhanced_logging: true
+    - name: Create log forwarding profile
+      paloaltonetworks.panos.panos_log_forwarding_profile:
+        provider: '{{ panos_provider }}'
+        name: 'Config_forward_profile'
+        #enhanced_logging: true
 
-    # - name: Create log forwarding profile match list
-    #   paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
-    #     provider: '{{ panos_provider }}'
-    #     log_forwarding_profile: 'Config_forward_profile'
-    #     name: 'Config_forward_profile_ML'
-    #     #log_type: config
-    #     filter: '( user eq admin ) or ( user neq admin )'
-    #     #filter: '(true eq true)'
-    #     http_profiles: ['{{ profile_name }}']
+    - name: Create log forwarding profile match list
+      paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
+        provider: '{{ panos_provider }}'
+        log_forwarding_profile: 'Config_forward_profile'
+        name: 'Config_forward_profile_ML'
+        vsys: shared
+        log_type: config
+        #filter: '( user eq admin ) or ( user neq admin )'
+        #filter: '(true eq true)'
+        filter: "All Logs"
+        http_profiles: ['{{ profile_name }}']
 
     - name: Commit configuration
       paloaltonetworks.panos.panos_commit_firewall:
