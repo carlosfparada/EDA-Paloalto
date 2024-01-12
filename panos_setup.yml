@@ -90,7 +90,7 @@
     #     filter: "All Logs"
     #     http_profiles: ['{{ profile_name }}']
 
-    - name: Show the address object.
+    - name: Forwsrd Config Logs to EDA source
       panos_type_cmd:
         provider: '{{ provider }}'
         cmd: "set shared log-settings config match-list 'Config Logs' filter 'All Logs' send-http {{ profile_name }}"
