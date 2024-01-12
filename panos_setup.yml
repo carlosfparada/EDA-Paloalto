@@ -79,28 +79,28 @@
         name: 'Config_forward_profile'
         #enhanced_logging: true
 
-    # - name: Create log forwarding profile match list
-    #   paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
-    #     provider: '{{ panos_provider }}'
-    #     log_forwarding_profile: 'Config_forward_profile'
-    #     name: 'Config_forward_profile_ML'
-    #     log_type: config
-    #     #filter: '( user eq admin ) or ( user neq admin )'
-    #     filter: '(true eq true)'
-    #     http_profiles: ['{{ profile_name }}']
-
-    - name: Forward Config Logs to EDA source
-      paloaltonetworks.panos.panos_type_cmd:
+    - name: Create log forwarding profile match list
+      paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
         provider: '{{ panos_provider }}'
-        cmd: set
-        #cmd: 'set shared log-settings config match-list "Config Logs" filter "All Logs" send-http {{ profile_name }}'
-        xpath: |
-          /config/shared/log-settings/config/match-list
-        element: |
-          <entry name="Config Logs">
-            <filter>All Logs</filter>
-            <send-http name="my_profile"></send-http>
-          </entry>
+        log_forwarding_profile: 'Config_forward_profile'
+        name: 'Config_forward_profile_ML'
+        #log_type: config
+        #filter: '( user eq admin ) or ( user neq admin )'
+        filter: '(true eq true)'
+        http_profiles: ['{{ profile_name }}']
+
+    # - name: Forward Config Logs to EDA source
+    #   paloaltonetworks.panos.panos_type_cmd:
+    #     provider: '{{ panos_provider }}'
+    #     cmd: set
+    #     #cmd: 'set shared log-settings config match-list "Config Logs" filter "All Logs" send-http {{ profile_name }}'
+    #     xpath: |
+    #       /config/shared/log-settings/config/match-list
+    #     element: |
+    #       <entry name="Config Logs">
+    #         <filter>All Logs</filter>
+    #         <send-http name="my_profile"></send-http>
+    #       </entry>
 
     - name: Commit configuration
       paloaltonetworks.panos.panos_commit_firewall:
