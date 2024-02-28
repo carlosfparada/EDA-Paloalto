@@ -9,11 +9,11 @@
   vars:
     payload: "{{ ansible_eda.event.payload }}"
   tasks:
-    - name: Remediation - Debug EDA Event
+    - name: REMEDIATION - DEBUG EVENT
       debug:
         var: ansible_eda.event
 
-    - name: Remediation - restore deleted rules
+    - name: Remediation - RESTORE DELETED RULES
       include_tasks: rule_main.yml
       when:
         - payload.admin == "adminmanual"
@@ -21,7 +21,7 @@
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
 
-    - name: Remediation - delete added rules
+    - name: REMEDIATION - DELETE ADDED RULES
       paloaltonetworks.panos.panos_security_rule:
         provider: '{{ panos_provider }}'
         state: absent
