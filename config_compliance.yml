@@ -62,7 +62,8 @@
         application: "{{ _rules_result.gathered.application }}"
         service: "{{ _rules_result.gathered.service }}"
         action: "{{ _rules_result.gathered.action }}"
-        tag_name: "{{ tag_name }}"
+        #tag_name: "{{ tag_name }}"
+        tag_name: ["manual"]
         state: present
         #log_setting: default
         commit: "False"
