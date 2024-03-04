@@ -34,10 +34,10 @@
     #     tag_name: _rules_result.gathered.tag_name
     #   when: _rules_result.gathered.tag_name is defined
 
-    - name: set facts - tag_name is null
+    - name: set facts - tag_name is not defined
       set_fact:
         tag_name: []
-      when: _rules_result.gathered.tag_name == null
+      when: _rules_result.gathered.tag_name is undefined
 
     - name: COMPLIANCE - ADD TAG TO A LIST VAR IF NEEDED
       set_fact: 
