@@ -63,7 +63,7 @@
         service: "{{ _rules_result.gathered.service }}"
         action: "{{ _rules_result.gathered.action }}"
         #tag_name: "{{ tag_name }}"
-        tag_name: ["manual"]
+        tag_name: ["ee"]
         state: replaced
         #log_setting: default
         commit: "False"
