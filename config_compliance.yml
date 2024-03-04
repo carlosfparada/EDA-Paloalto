@@ -34,7 +34,7 @@
     #     tag_name: _rules_result.gathered.tag_name
     #   when: _rules_result.gathered.tag_name is defined
 
-    - name: set facts - tag_name is not defined
+    - name: set facts - tag_name is null
       set_fact:
         tag_name: []
       when: _rules_result.gathered.tag_name is null
