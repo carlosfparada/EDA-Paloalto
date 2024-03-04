@@ -25,19 +25,19 @@
         - '"rulebase security rules" in payload.path'
       register: _rules_result
 
-    - name: DEBUG RULE
+    - name: COMPLIANCE - DEBUG RULE
       debug:
         var: _rules_result
 
-    # - name: Set facts - tag_name is defined
-    #   set_fact:
-    #     tag_name: _rules_result.gathered.tag_name
-    #   when: _rules_result.gathered.tag_name is defined
+    - name: COMPLIANCE - Set facts when tag_name is defined
+      set_fact:
+        tag_name: _rules_result.gathered.tag_name
+      when: _rules_result.gathered.tag_name is defined
 
-    - name: set facts - tag_name is undefined
+    - name: COMPLIANCE - Set facts when tag_name is undefined
       set_fact:
         tag_name: []
-      # when: _rules_result.gathered.tag_name is undefined
+      when: _rules_result.gathered.tag_name is undefined
 
     - name: COMPLIANCE - ADD TAG TO THE LIST VAR IF NEEDED
       set_fact: 
@@ -47,7 +47,7 @@
         - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
-#        - "manual" in _rules_result.rule_details.tag_name
+        - "manual" in _rules_result.rule_details.tag_name
 
     - name: MAKE SURE manual TAG EXISTS
       paloaltonetworks.panos.panos_tag_object:
