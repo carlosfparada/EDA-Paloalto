@@ -34,12 +34,12 @@
         # provider: '{{ panos_provider }}'
         # state: present
 
+    # - name: COMPLIANCE - ADD TAG TO ADDED RULES
+    #   paloaltonetworks.panos.panos_security_rule:
+
+    #     "{{ _rules_result.gathered }}"
+
     - name: COMPLIANCE - ADD TAG TO ADDED RULES
-      paloaltonetworks.panos.panos_security_rule:
-
-        "{{ _rules_result.gathered }}"
-
-    - name: Add rule {{ _rule.name }} to PanOS
       paloaltonetworks.panos.panos_security_rule:
         provider: "{{ panos_provider }}"
         rule_name: "{{ _rules_result.gathered.rule_name }}"
@@ -52,5 +52,6 @@
         application: "{{ _rules_result.gathered.application }}"
         service: "{{ _rules_result.gathered.service }}"
         action: "{{ _rules_result.gathered.action }}"
+        state: present
         #log_setting: default
         commit: "False"
