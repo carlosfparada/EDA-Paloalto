@@ -51,7 +51,7 @@
 
     - name: MAKE SURE manual TAG EXISTS
       paloaltonetworks.panos.panos_tag_object:
-        provider: '{{ provider }}'
+        provider: "{{ panos_provider }}"
         name: 'manual'
         color: 'red'
         comments: 'Manually created rule'
