@@ -24,7 +24,7 @@
         - '"rulebase security rules" in payload.path'
       register: _rules_result
 
-    - name: Debug rules
+    - name: Debug rules before
       debug:
         var: _rules_result
 
@@ -41,3 +41,8 @@
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
         - '"manual" not in item.tag_name'
+
+    - name: Debug rules after
+      debug:
+        var: _rules_result
+
