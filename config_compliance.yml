@@ -37,7 +37,7 @@
     - name: set facts - tag_name is not defined
       set_fact:
         tag_name: []
-      #when: _rules_result.gathered.tag_name is not defined
+      when: _rules_result.gathered.tag_name is null
 
     - name: COMPLIANCE - ADD TAG TO A LIST VAR IF NEEDED
       set_fact: 
