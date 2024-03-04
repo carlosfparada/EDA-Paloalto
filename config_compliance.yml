@@ -35,7 +35,7 @@
 
     - name: COMPLIANCE - ADD TAG TO ADDED RULES
       paloaltonetworks.panos.panos_security_rule:
-        #provider: '{{ panos_provider }}'
-        #state: present
+        provider: '{{ panos_provider }}'
+        state: present
         "{{ _rules_result.gathered }}"
 
