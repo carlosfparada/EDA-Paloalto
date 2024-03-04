@@ -29,12 +29,12 @@
       debug:
         var: _rules_result
 
-    - name: Set facts - 
+    - name: Set facts - tag_name is defined
       set_fact:
         tag_name: _rules_result.gathered.tag_name
       when: _rules_result.gathered.tag_name is defined
 
-    - name: set facts
+    - name: set facts - tag_name is not defined
       set_fact:
         tag_name: []
       when: _rules_result.gathered.tag_name is not defined
