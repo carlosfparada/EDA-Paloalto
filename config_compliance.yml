@@ -56,6 +56,13 @@
         color: 'red'
         comments: 'Manually created rule'
 
+    - name: MAKE SURE ansible TAG EXISTS
+      paloaltonetworks.panos.panos_tag_object:
+        provider: "{{ panos_provider }}"
+        name: 'ansible'
+        color: 'green'
+        comments: 'Ansible created rule'
+
     - name: COMPLIANCE - ADD manual TAG TO ADDED RULES
       paloaltonetworks.panos.panos_security_rule:
         provider: "{{ panos_provider }}"
@@ -79,13 +86,6 @@
         - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
-
-    - name: MAKE SURE manual TAG EXISTS
-      paloaltonetworks.panos.panos_tag_object:
-        provider: "{{ panos_provider }}"
-        name: 'ansible'
-        color: 'green'
-        comments: 'Manually created rule'
 
     - name: COMPLIANCE - ADD TAG TO ADDED RULES
       paloaltonetworks.panos.panos_security_rule:
