@@ -25,19 +25,14 @@
         - '"rulebase security rules" in payload.path'
       register: _rules_result
 
-    - name: Debug rules before
+    - name: DEBUG RULE
       debug:
         var: _rules_result
 
-#        tag_name: "{{ my_strings + [ 'manual' ] }}"
-#        - '"manual" not in _rules_result.rule_details.tag_name'
-        # provider: '{{ panos_provider }}'
-        # state: present
-
-    # - name: COMPLIANCE - ADD TAG TO ADDED RULES
-    #   paloaltonetworks.panos.panos_security_rule:
-
-    #     "{{ _rules_result.gathered }}"
+    - name: COMPLIANCE - ADD TAG TO A LIST VAR IF NEEDED
+      set_facts: 
+        _rules_result.gathered.tag_name: "{{ _rules_result.gathered.tag_name + [ 'manual' ] }}"
+      when: '"manual" not in _rules_result.rule_details.tag_name'
 
     - name: COMPLIANCE - ADD TAG TO ADDED RULES
       paloaltonetworks.panos.panos_security_rule:
@@ -52,6 +47,12 @@
         application: "{{ _rules_result.gathered.application }}"
         service: "{{ _rules_result.gathered.service }}"
         action: "{{ _rules_result.gathered.action }}"
+        tag_name: "{{ _rules_result.gathered.tag_name }}"
         state: present
         #log_setting: default
         commit: "False"
+      when:
+        - payload.admin == "adminmanual"
+        - payload.cmd == "set"
+        - payload.result == "Succeeded"
+        - '"rulebase security rules" in payload.path'
