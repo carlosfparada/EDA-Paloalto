@@ -14,9 +14,10 @@
         var: ansible_eda.event
 
     - name: COMPLIANCE - CHECK TAG ON ADDED RULES
-      paloaltonetworks.panos.panos_security_rule_facts:
+      paloaltonetworks.panos.panos_security_rule:
         provider: '{{ panos_provider }}'
         rule_name: "{{ payload.path | regex_search('.*rulebase security rules  (.*)','\\1') | first}}"
+        state: gathered
       when:
         - payload.admin == "adminmanual"
         - payload.cmd == "set"
@@ -34,13 +35,12 @@
         state: present
         rule_name: "{{ payload.path | regex_search('.*rulebase security rules  (.*)','\\1') | first}}"
         tag_name: "{{ my_strings + [ 'manual' ] }}"
-      loop: "{{ _rules_result.rule_details }}"
       when:
         - payload.admin == "adminmanual"
         - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
-        - '"manual" not in item.tag_name'
+        - '"manual" not in _rules_result.rule_details.tag_name'
 
     - name: Debug rules after
       debug:
