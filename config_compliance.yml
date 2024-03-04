@@ -41,7 +41,7 @@
 
     - name: COMPLIANCE - ADD TAG TO THE LIST VAR IF NEEDED
       set_fact: 
-        tag_name: "{{ tag_name + [ 'manual' ] }}"
+        tag_name: "{{ tag_name + ['manual'] }}"
       when:
         - payload.admin == "adminmanual"
         - payload.cmd == "set"
