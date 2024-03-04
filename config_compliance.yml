@@ -30,7 +30,7 @@
         var: _rules_result
 
     - name: COMPLIANCE - ADD TAG TO A LIST VAR IF NEEDED
-      set_facts: 
+      set_fact: 
         _rules_result.gathered.tag_name: "{{ _rules_result.gathered.tag_name + [ 'manual' ] }}"
       when:
         - payload.admin == "adminmanual"
