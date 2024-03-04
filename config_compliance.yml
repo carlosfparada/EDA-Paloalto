@@ -49,6 +49,13 @@
         - '"rulebase security rules" in payload.path'
 #        - "manual" in _rules_result.rule_details.tag_name
 
+    - name: MAKE SURE manual TAG EXISTS
+      paloaltonetworks.panos.panos_tag_object:
+        provider: '{{ provider }}'
+        name: 'manual'
+        color: 'red'
+        comments: 'Manually created rule'
+
     - name: COMPLIANCE - ADD TAG TO ADDED RULES
       paloaltonetworks.panos.panos_security_rule:
         provider: "{{ panos_provider }}"
@@ -62,8 +69,8 @@
         application: "{{ _rules_result.gathered.application }}"
         service: "{{ _rules_result.gathered.service }}"
         action: "{{ _rules_result.gathered.action }}"
-        #tag_name: "{{ tag_name }}"
-        tag_name: ["ee"]
+        tag_name: "{{ tag_name }}"
+        #tag_name: ["manual"]
         state: replaced
         #log_setting: default
         commit: "False"
