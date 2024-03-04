@@ -64,7 +64,7 @@
         action: "{{ _rules_result.gathered.action }}"
         #tag_name: "{{ tag_name }}"
         tag_name: ["manual"]
-        state: present
+        state: replaced
         #log_setting: default
         commit: "False"
       when:
