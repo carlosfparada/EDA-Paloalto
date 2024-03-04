@@ -39,7 +39,7 @@
         tag_name: []
       # when: _rules_result.gathered.tag_name is undefined
 
-    - name: COMPLIANCE - ADD TAG TO A LIST VAR IF NEEDED
+    - name: COMPLIANCE - ADD TAG TO THE LIST VAR IF NEEDED
       set_fact: 
         tag_name: "{{ tag_name + [ 'manual' ] }}"
       when:
