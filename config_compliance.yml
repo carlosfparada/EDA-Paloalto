@@ -9,23 +9,26 @@
   vars:
     payload: "{{ ansible_eda.event.payload }}"
   tasks:
-    - name: REMEDIATION - DEBUG EVENT
+    - name: COMPLIANCE - DEBUG EVENT
       debug:
         var: ansible_eda.event
 
-    - name: Remediation - RESTORE DELETED RULES
-      include_tasks: rule_main.yml
+    - name: COMPLIANCE - CHECK TAG ON ADDED RULES
+      paloaltonetworks.panos.panos_security_rule_facts:
+        provider: '{{ panos_provider }}'
+        rule_name: "{{ payload.path | regex_search('.*rulebase security rules  (.*)','\\1') | first}}"
       when:
         - payload.admin == "adminmanual"
-        - payload.cmd == "delete"
+        - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
 
-    - name: REMEDIATION - DELETE ADDED RULES
+    - name: COMPLIANCE - ADD TAG TO ADDED RULES
       paloaltonetworks.panos.panos_security_rule:
         provider: '{{ panos_provider }}'
-        state: absent
+        state: present
         rule_name: "{{ payload.path | regex_search('.*rulebase security rules  (.*)','\\1') | first}}"
+        tag_name: manual
       when:
         - payload.admin == "adminmanual"
         - payload.cmd == "set"
