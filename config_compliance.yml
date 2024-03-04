@@ -28,15 +28,16 @@
       debug:
         var: _rules_result
 
-
     - name: COMPLIANCE - ADD TAG TO ADDED RULES
       paloaltonetworks.panos.panos_security_rule:
         provider: '{{ panos_provider }}'
         state: present
         rule_name: "{{ payload.path | regex_search('.*rulebase security rules  (.*)','\\1') | first}}"
-        tag_name: manual
+        tag_name: "{{ my_strings + [ 'manual' ] }}"
+      loop: "{{ _rules_result.rule_details }}"
       when:
         - payload.admin == "adminmanual"
         - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
+        - '"manual" not in item.tag_name'
