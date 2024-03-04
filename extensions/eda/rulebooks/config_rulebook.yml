@@ -17,9 +17,9 @@
             pretty: true
         - debug: 
             var: event.payload.type
-        - run_job_template:
-            organization: "Default"
-            name: "EDA Paloalto: config remediation"
+        # - run_job_template:
+        #     organization: "Default"
+        #     name: "EDA Paloalto: config remediation"
         - run_job_template:
             organization: "Default"
             name: "EDA Paloalto: config compliance"
