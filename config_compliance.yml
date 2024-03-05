@@ -46,6 +46,12 @@
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
 
+    - debug:
+        var: tag_name_list
+
+    - debug:
+        var: tag_name
+
     - name: COMPLIANCE - ADD TAG TO THE LIST VAR
       set_fact: 
         tag_name_list: "{{ tag_name_list + tag_name }}"
