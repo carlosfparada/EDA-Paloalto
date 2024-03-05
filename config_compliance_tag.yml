@@ -53,8 +53,7 @@
             tag_name: "{{ tag_name_list }}"
             state: replaced
             commit: "False"
-      when:
-        - payload.admin == "adminmanual"
+      when: payload.admin == "adminmanual"
 
     - name: COMPLIANCE - POLICY ANSIBLE CHANGE
       block:
@@ -91,6 +90,5 @@
             tag_name: "{{ tag_name_list }}"
             state: replaced
             commit: "False"
-      when:
-        - payload.admin == "admin"
+      when: payload.admin == "admin"
 
