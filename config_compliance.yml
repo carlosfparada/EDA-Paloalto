@@ -7,7 +7,7 @@
   vars_files:
     - vars/main.yml
   tasks:
-    - name: COMPLIANCE - DEBUG EVENT
+    - name: COMPLIANCE - SET EVENT VAR
       set_fact:
         payload: "{{ ansible_eda.event.payload }}"
 
