@@ -15,7 +15,7 @@
     - name: COMPLIANCE - GET INFO ON ADDED RULES
       paloaltonetworks.panos.panos_security_rule:
         provider: '{{ panos_provider }}'
-        rule_name: "{{ payload.after_change_detail | regex_search('.*rules { (.*) ','\\1') | first}}"
+        rule_name: "{{ payload.after_change_detail | regex_search('.*rules { (.*) .*','\\1') | first}}"
         state: gathered
       register: _rules_result
 
