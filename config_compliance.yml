@@ -53,7 +53,7 @@
             tag_name: "{{ tag_name_list }}"
             state: replaced
             commit: "False"
-          when: '"manual" in _rules_result.rule_details.tag_name'
+          when: '"manual" in _rules_result.gathered.tag_name'
       when:
         - payload.admin == "adminmanual"
         - payload.cmd == "set" or payload.cmd == "edit"
@@ -91,7 +91,7 @@
             tag_name: "{{ tag_name_list }}"
             state: replaced
             commit: "False"
-          when: '"ansible" in _rules_result.rule_details.tag_name'
+          when: '"ansible" in _rules_result.gathered.tag_name'
       when:
         - payload.admin == "admin"
         - payload.cmd == "set" or payload.cmd == "edit"
