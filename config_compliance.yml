@@ -27,15 +27,25 @@
         tag_name_list: "{{ _rules_result.gathered.tag_name | default([]) }}"
         tag_name: ['manual']
       when:
+        - payload.admin == "adminmanual"
         - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
 
-    - name: COMPLIANCE - ADD TAG TO THE LIST VAR
+    - name: COMPLIANCE - SET MANDATORY TAG
+      set_fact:
+        tag_name_list: "{{ _rules_result.gathered.tag_name | default([]) }}"
+        tag_name: ['ansible']
+      when:
+        - payload.admin == "admin"
+        - payload.cmd == "set"
+        - payload.result == "Succeeded"
+        - '"rulebase security rules" in payload.path'
+
+    - name: COMPLIANCE - ADD TAG TO THE LIST
       set_fact: 
         tag_name_list: "{{ tag_name_list + tag_name }}"
       when:
-        - payload.admin == "adminmanual"
         - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
@@ -83,4 +93,5 @@
         - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
+        #- '"manual" in _rules_result.rule_details.tag_name'
 
