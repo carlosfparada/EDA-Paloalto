@@ -19,7 +19,7 @@
       actions:
         # Debug
         - debug: 
-            var: event.payload.type
+            var: event.payload
         - print_event:
             pretty: true
         # Config tag compliance
