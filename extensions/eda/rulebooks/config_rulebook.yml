@@ -13,13 +13,13 @@
       condition: #event.payload.type == "CONFIG"
         all:
          - event.payload.type == "CONFIG"
-         - event.payload.cmd == "set"
+        #  - event.payload.cmd == "set"
         #  - event.payload.result == "Succeeded"
          #- '"rulebase security rules" in event.payload.path'
       actions:
         # Debug
-        # - debug: 
-        #     var: event.payload.type
+        - debug: 
+            var: event.payload.type
         - print_event:
             pretty: true
         # Config tag compliance
