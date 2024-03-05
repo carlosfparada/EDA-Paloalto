@@ -12,16 +12,15 @@
       set_fact:
         payload: "{{ ansible_eda.event.payload }}"
 
-    - name: COMPLIANCE - GET INFO ON ADDED RULES
-      paloaltonetworks.panos.panos_security_rule:
-        provider: '{{ panos_provider }}'
-        rule_name: "{{ payload.after_change_detail.split(' ')[2] }}"
-        rule_name: "{{ payload.path | regex_search('.*rulebase security rules  (.*)','\\1') | first}}"
-        state: gathered
-      register: _rules_result
-
     - name: COMPLIANCE - POLICY MANUAL CHANGE
       block:
+
+        - name: COMPLIANCE - GET INFO ON ADDED RULES
+          paloaltonetworks.panos.panos_security_rule:
+            provider: '{{ panos_provider }}'
+            rule_name: "{{ payload.path | regex_search('.*rulebase security rules  (.*)','\\1') | first}}"
+            state: gathered
+          register: _rules_result
 
         - name: COMPLIANCE - SET manual TAG
           set_fact:
@@ -64,6 +63,13 @@
 
     - name: COMPLIANCE - POLICY ANSIBLE CHANGE
       block:
+
+        - name: COMPLIANCE - GET INFO ON ADDED RULES
+          paloaltonetworks.panos.panos_security_rule:
+            provider: '{{ panos_provider }}'
+            rule_name: "{{ payload.after_change_detail.split(' ')[2] }}"
+            state: gathered
+          register: _rules_result
 
         - name: COMPLIANCE - SET ansible TAG
           set_fact:
