@@ -40,7 +40,7 @@
     - name: COMPLIANCE - SET tag_name
       set_fact:
         tag_name_list: _rules_result.gathered.tag_name | default([])
-        tag_name: ["manual"]
+        tag_name: ['manual']
       when:
         - payload.cmd == "set"
         - payload.result == "Succeeded"
@@ -48,7 +48,7 @@
 
     - name: COMPLIANCE - ADD TAG TO THE LIST VAR
       set_fact: 
-        tag_name_list: "{{ tag_name_list  + tag_name }}"
+        tag_name_list: "{{ tag_name_list + tag_name }}"
       when:
         - payload.admin == "adminmanual"
         - payload.cmd == "set"
