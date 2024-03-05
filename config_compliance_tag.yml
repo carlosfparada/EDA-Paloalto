@@ -7,6 +7,7 @@
   vars_files:
     - vars/main.yml
   tasks:
+  
     - name: COMPLIANCE - SET EVENT VAR
       set_fact:
         payload: "{{ ansible_eda.event.payload }}"
@@ -20,12 +21,13 @@
 
     - name: COMPLIANCE - POLICY MANUAL CHANGE
       block:
+
         - name: COMPLIANCE - SET manual TAG
           set_fact:
             tag_name_list: "{{ _rules_result.gathered.tag_name | default([], true) }}"
             tag_name: ['manual']
 
-        - name: COMPLIANCE - ADD TAG TO THE LIST
+        - name: COMPLIANCE - ADD manual TAG TO THE LIST
           set_fact: 
             tag_name_list: "{{ tag_name_list + tag_name }}"
           when: '"manual" not in tag_name_list'
@@ -57,12 +59,13 @@
 
     - name: COMPLIANCE - POLICY ANSIBLE CHANGE
       block:
+
         - name: COMPLIANCE - SET ansible TAG
           set_fact:
             tag_name_list: "{{ _rules_result.gathered.tag_name | default([], true) }}"
             tag_name: ['ansible']
-        - name: COMPLIANCE - ADD TAG TO THE LIST
 
+        - name: COMPLIANCE - ADD ansible TAG TO THE LIST
           set_fact: 
             tag_name_list: "{{ tag_name_list + tag_name }}"
           when: '"ansible" not in tag_name_list'
