@@ -69,13 +69,13 @@
         - name: COMPLIANCE - ADD TAG TO THE LIST
           set_fact: 
             tag_name_list: "{{ tag_name_list + tag_name }}"
-        - name: MAKE SURE manual TAG EXISTS
+        - name: MAKE SURE ansible TAG EXISTS
           paloaltonetworks.panos.panos_tag_object:
             provider: "{{ panos_provider }}"
             name: 'ansible'
             color: 'red'
             comments: 'Ansible created rule'
-        - name: COMPLIANCE - ADD manual TAG TO ADDED RULES
+        - name: COMPLIANCE - ADD ansible TAG TO ADDED RULES
           paloaltonetworks.panos.panos_security_rule:
             provider: "{{ panos_provider }}"
             rule_name: "{{ _rules_result.gathered.rule_name }}"
@@ -91,7 +91,7 @@
             tag_name: "{{ tag_name_list }}"
             state: replaced
             commit: "False"
-          when: '"ansible" in _rules_result.gathered.tag_name'
+          when: '"ansible" not in _rules_result.gathered.tag_name'
       when:
         - payload.admin == "admin"
         - payload.cmd == "set" or payload.cmd == "edit"
