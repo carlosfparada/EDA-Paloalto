@@ -34,16 +34,11 @@
         tag_name_list: _rules_result.gathered.tag_name
       when: _rules_result.gathered.tag_name is defined
 
-    # - name: COMPLIANCE - Set facts when tag_name is undefined
-    #   set_fact:
-    #     tag_name: []
-    #   when: _rules_result.gathered.tag_name is undefined
-
-    - name: COMPLIANCE - Set facts when tag_name is undefined
+    - name: COMPLIANCE - SET tag_name
       set_fact:
         tag_name: ['manual']
 
-    - name: COMPLIANCE - ADD TAG TO THE LIST VAR IF NEEDED
+    - name: COMPLIANCE - ADD TAG TO THE LIST VAR
       set_fact: 
         tag_name_list: "{{ tag_name_list | default([])  + tag_name }}"
       when:
@@ -60,12 +55,12 @@
         color: 'red'
         comments: 'Manually created rule'
 
-    - name: MAKE SURE ansible TAG EXISTS
-      paloaltonetworks.panos.panos_tag_object:
-        provider: "{{ panos_provider }}"
-        name: 'ansible'
-        color: 'green'
-        comments: 'Ansible created rule'
+    # - name: MAKE SURE ansible TAG EXISTS
+    #   paloaltonetworks.panos.panos_tag_object:
+    #     provider: "{{ panos_provider }}"
+    #     name: 'ansible'
+    #     color: 'green'
+    #     comments: 'Ansible created rule'
 
     - name: COMPLIANCE - ADD manual TAG TO ADDED RULES
       paloaltonetworks.panos.panos_security_rule:
@@ -90,25 +85,3 @@
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
 
-    # - name: COMPLIANCE - ADD TAG TO ADDED RULES
-    #   paloaltonetworks.panos.panos_security_rule:
-    #     provider: "{{ panos_provider }}"
-    #     rule_name: "{{ _rules_result.gathered.rule_name }}"
-    #     description: "{{ _rules_result.gathered.description }}"
-    #     source_zone: "{{ _rules_result.gathered.source_zone }}"
-    #     destination_zone: "{{ _rules_result.gathered.destination_zone }}"
-    #     source_ip: "{{ _rules_result.gathered.source_ip }}"
-    #     destination_ip: "{{ _rules_result.gathered.destination_ip }}"
-    #     category: "{{ _rules_result.gathered.category }}"
-    #     application: "{{ _rules_result.gathered.application }}"
-    #     service: "{{ _rules_result.gathered.service }}"
-    #     action: "{{ _rules_result.gathered.action }}"
-    #     tag_name: "{{ tag_name }}"
-    #     state: replaced
-    #     #log_setting: default
-    #     commit: "False"
-    #   when:
-    #     - payload.admin == "admin"
-    #     - payload.cmd == "set"
-    #     - payload.result == "Succeeded"
-    #     - '"rulebase security rules" in payload.path'
