@@ -10,7 +10,8 @@
   # Rule config logs
   rules:
     - name: "Handle Config Logs - Compliance "
-      condition: event.payload.type == "CONFIG" and event.payload.cmd == "set" and event.payload.result == "Succeeded" and '"rulebase security rules" in event.payload.path'
+      condition: event.payload.type == "CONFIG"
+      #and event.payload.cmd == "set" and event.payload.result == "Succeeded" and '"rulebase security rules" in event.payload.path'
       actions:
         # Debug
         - debug: 
