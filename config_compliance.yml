@@ -22,9 +22,6 @@
         - '"rulebase security rules" in payload.path'
       register: _rules_result
 
-    - debug:
-        var: _rules_result.gathered.tag_name
-
     - name: COMPLIANCE - SET manual TAG
       set_fact:
         tag_name_list: "{{ _rules_result.gathered.tag_name | default([], true) }}"
@@ -37,7 +34,7 @@
 
     - name: COMPLIANCE - SET ansible TAG
       set_fact:
-        tag_name_list: "{{ _rules_result.gathered.tag_name | default([]) }}"
+        tag_name_list: "{{ _rules_result.gathered.tag_name | default([], true) }}"
         tag_name: ['ansible']
       when:
         - payload.admin == "admin"
