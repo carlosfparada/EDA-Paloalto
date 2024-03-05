@@ -11,15 +11,17 @@
   rules:
     - name: "Handle Config Logs"
       condition: event.payload.type == "CONFIG" and event.payload.cmd == "set"
-      # Remediation Template
       actions:
+        # Debug
+        # - debug: 
+        #     var: event.payload.type
         - print_event:
             pretty: true
+        # Config tag compliance
         - run_job_template:
             organization: "Default"
             name: "EDA Paloalto: config tag compliance"
-        # - debug: 
-        #     var: event.payload.type
+        # Remediation Template
         # - run_job_template:
         #     organization: "Default"
         #     name: "EDA Paloalto: config remediation"
