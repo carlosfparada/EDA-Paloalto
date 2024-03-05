@@ -17,7 +17,7 @@
         rule_name: "{{ payload.path | regex_search('.*rulebase security rules  (.*)','\\1') | first}}"
         state: gathered
       when:
-        - payload.cmd == "set"
+        - payload.cmd == "set" or payload.cmd == "edit"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
       register: _rules_result
