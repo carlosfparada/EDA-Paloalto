@@ -8,6 +8,7 @@
     - vars/main.yml
   vars:
     payload: "{{ ansible_eda.event.payload }}"
+    tag_name_list: []
   tasks:
     - name: COMPLIANCE - DEBUG EVENT
       debug:
@@ -35,11 +36,11 @@
 
     - name: COMPLIANCE - SET tag_name
       set_fact:
-        tag_name: ['manual']
+        tag_name: ["manual"]
 
     - name: COMPLIANCE - ADD TAG TO THE LIST VAR
       set_fact: 
-        tag_name_list: "{{ tag_name_list | default([])  + tag_name }}"
+        tag_name_list: "{{ tag_name_list  + tag_name }}"
       when:
         - payload.admin == "adminmanual"
         - payload.cmd == "set"
