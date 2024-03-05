@@ -59,7 +59,7 @@
           when: '"manual" not in _rules_result.gathered.tag_name'
       when:
         - payload.admin == "adminmanual"
-        - payload.cmd == "set" or payload.cmd == "edit"
+        - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
 
@@ -80,7 +80,7 @@
             name: 'ansible'
             color: 'red'
             comments: 'Ansible created rule'
-            
+
         - name: COMPLIANCE - ADD ansible TAG TO ADDED RULES
           paloaltonetworks.panos.panos_security_rule:
             provider: "{{ panos_provider }}"
@@ -100,7 +100,7 @@
           when: '"ansible" not in _rules_result.gathered.tag_name'
       when:
         - payload.admin == "admin"
-        - payload.cmd == "set" or payload.cmd == "edit"
+        - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
 
