@@ -22,7 +22,7 @@
         - '"rulebase security rules" in payload.path'
       register: _rules_result
 
-    - name: COMPLIANCE - SET MANDATORY TAG
+    - name: COMPLIANCE - SET manual TAG
       set_fact:
         tag_name_list: "{{ _rules_result.gathered.tag_name | default([]) }}"
         tag_name: ['manual']
@@ -32,7 +32,7 @@
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
 
-    - name: COMPLIANCE - SET MANDATORY TAG
+    - name: COMPLIANCE - SET ansible TAG
       set_fact:
         tag_name_list: "{{ _rules_result.gathered.tag_name | default([]) }}"
         tag_name: ['ansible']
