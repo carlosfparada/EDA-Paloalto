@@ -6,9 +6,6 @@
   gather_facts: no
   vars_files:
     - vars/main.yml
-  vars:
-    #payload: "{{ ansible_eda.event.payload }}"
-    #tag_name_list: []
   tasks:
     - name: COMPLIANCE - DEBUG EVENT
       set_fact:
@@ -25,7 +22,7 @@
         - '"rulebase security rules" in payload.path'
       register: _rules_result
 
-    - name: COMPLIANCE - SET tag_name
+    - name: COMPLIANCE - SET MANDATORY TAG
       set_fact:
         tag_name_list: "{{ _rules_result.gathered.tag_name | default([]) }}"
         tag_name: ['manual']
@@ -33,12 +30,6 @@
         - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
-
-    - debug:
-        var: tag_name_list
-
-    - debug:
-        var: tag_name
 
     - name: COMPLIANCE - ADD TAG TO THE LIST VAR
       set_fact: 
