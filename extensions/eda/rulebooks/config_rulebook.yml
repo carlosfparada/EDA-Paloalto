@@ -25,7 +25,7 @@
         # Config tag compliance
         - run_job_template:
             organization: "Default"
-            name: "EDA Paloalto: config tag compliance"
+            name: "EDA Paloalto: config compliance tag"
         # Remediation Template
         # - run_job_template:
         #     organization: "Default"
