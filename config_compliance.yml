@@ -11,7 +11,7 @@
       set_fact:
         payload: "{{ ansible_eda.event.payload }}"
 
-    - name: COMPLIANCE - CHECK TAG ON ADDED RULES
+    - name: COMPLIANCE - GET INFO ON ADDED RULES
       paloaltonetworks.panos.panos_security_rule:
         provider: '{{ panos_provider }}'
         rule_name: "{{ payload.path | regex_search('.*rulebase security rules  (.*)','\\1') | first}}"
@@ -89,7 +89,7 @@
         service: "{{ _rules_result.gathered.service }}"
         action: "{{ _rules_result.gathered.action }}"
         tag_name: "{{ tag_name_list }}"
-        state: replaced
+        state: present
         commit: "False"
       when:
         - payload.cmd == "set"
