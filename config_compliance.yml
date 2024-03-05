@@ -8,7 +8,6 @@
     - vars/main.yml
   vars:
     payload: "{{ ansible_eda.event.payload }}"
-    tag_name: []
   tasks:
     - name: COMPLIANCE - DEBUG EVENT
       debug:
@@ -40,9 +39,13 @@
     #     tag_name: []
     #   when: _rules_result.gathered.tag_name is undefined
 
+    - name: COMPLIANCE - Set facts when tag_name is undefined
+      set_fact:
+        tag_name: ['manual']
+
     - name: COMPLIANCE - ADD TAG TO THE LIST VAR IF NEEDED
       set_fact: 
-        tag_name: "{{ tag_name | default([])  + ['manual'] }}"
+        tag_name_list: "{{ tag_name_list | default([])  + tag_name }}"
       when:
         - payload.admin == "adminmanual"
         - payload.cmd == "set"
@@ -77,7 +80,7 @@
         application: "{{ _rules_result.gathered.application }}"
         service: "{{ _rules_result.gathered.service }}"
         action: "{{ _rules_result.gathered.action }}"
-        tag_name: "{{ tag_name }}"
+        tag_name: "{{ tag_name_list }}"
         state: replaced
         #log_setting: default
         commit: "False"
