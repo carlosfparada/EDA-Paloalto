@@ -15,7 +15,7 @@
     - name: COMPLIANCE - GET INFO ON ADDED RULES
       paloaltonetworks.panos.panos_security_rule:
         provider: '{{ panos_provider }}'
-        rule_name: "{{ payload.after_change_detail.split(' ')[2]"
+        rule_name: "{{ payload.after_change_detail.split(' ')[2] }}"
         state: gathered
       register: _rules_result
 
