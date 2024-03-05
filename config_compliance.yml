@@ -54,7 +54,7 @@
 
     - name: COMPLIANCE - ADD TAG TO THE LIST VAR
       set_fact: 
-        _rules_result.gathered.tag_name: "{{ _rules_result.gathered.tag_name + ['manual'] }}"
+        tag_name_list: "{{ tag_name_list + tag_name }}"
       when:
         - payload.admin == "adminmanual"
         - payload.cmd == "set"
@@ -95,7 +95,7 @@
         application: "{{ _rules_result.gathered.application }}"
         service: "{{ _rules_result.gathered.service }}"
         action: "{{ _rules_result.gathered.action }}"
-        tag_name: "{{ _rules_result.gathered.tag_name }}"
+        tag_name: "{{ tag_name_list }}"
         state: replaced
         #log_setting: default
         commit: "False"
