@@ -22,77 +22,79 @@
         - '"rulebase security rules" in payload.path'
       register: _rules_result
 
-    - name: COMPLIANCE - SET manual TAG
-      set_fact:
-        tag_name_list: "{{ _rules_result.gathered.tag_name | default([], true) }}"
-        tag_name: ['manual']
+    - name: COMPLIANCE - POLICY MANUAL CHANGE
+      block:
+        - name: COMPLIANCE - SET manual TAG
+          set_fact:
+            tag_name_list: "{{ _rules_result.gathered.tag_name | default([], true) }}"
+            tag_name: ['manual']
+        - name: COMPLIANCE - ADD TAG TO THE LIST
+          set_fact: 
+            tag_name_list: "{{ tag_name_list + tag_name }}"
+        - name: MAKE SURE manual TAG EXISTS
+          paloaltonetworks.panos.panos_tag_object:
+            provider: "{{ panos_provider }}"
+            name: 'manual'
+            color: 'red'
+            comments: 'Manually created rule'
+        - name: COMPLIANCE - ADD manual TAG TO ADDED RULES
+          paloaltonetworks.panos.panos_security_rule:
+            provider: "{{ panos_provider }}"
+            rule_name: "{{ _rules_result.gathered.rule_name }}"
+            description: "{{ _rules_result.gathered.description }}"
+            source_zone: "{{ _rules_result.gathered.source_zone }}"
+            destination_zone: "{{ _rules_result.gathered.destination_zone }}"
+            source_ip: "{{ _rules_result.gathered.source_ip }}"
+            destination_ip: "{{ _rules_result.gathered.destination_ip }}"
+            category: "{{ _rules_result.gathered.category }}"
+            application: "{{ _rules_result.gathered.application }}"
+            service: "{{ _rules_result.gathered.service }}"
+            action: "{{ _rules_result.gathered.action }}"
+            tag_name: "{{ tag_name_list }}"
+            state: replaced
+            commit: "False"
+          when: '"manual" in _rules_result.rule_details.tag_name'
       when:
         - payload.admin == "adminmanual"
-        - payload.cmd == "set"
+        - payload.cmd == "set" or payload.cmd == "edit"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
 
-    - name: COMPLIANCE - SET ansible TAG
-      set_fact:
-        tag_name_list: "{{ _rules_result.gathered.tag_name | default([], true) }}"
-        tag_name: ['ansible']
+    - name: COMPLIANCE - POLICY ANSIBLE CHANGE
+      block:
+        - name: COMPLIANCE - SET ansible TAG
+          set_fact:
+            tag_name_list: "{{ _rules_result.gathered.tag_name | default([], true) }}"
+            tag_name: ['ansible']
+        - name: COMPLIANCE - ADD TAG TO THE LIST
+          set_fact: 
+            tag_name_list: "{{ tag_name_list + tag_name }}"
+        - name: MAKE SURE manual TAG EXISTS
+          paloaltonetworks.panos.panos_tag_object:
+            provider: "{{ panos_provider }}"
+            name: 'ansible'
+            color: 'red'
+            comments: 'Ansible created rule'
+        - name: COMPLIANCE - ADD manual TAG TO ADDED RULES
+          paloaltonetworks.panos.panos_security_rule:
+            provider: "{{ panos_provider }}"
+            rule_name: "{{ _rules_result.gathered.rule_name }}"
+            description: "{{ _rules_result.gathered.description }}"
+            source_zone: "{{ _rules_result.gathered.source_zone }}"
+            destination_zone: "{{ _rules_result.gathered.destination_zone }}"
+            source_ip: "{{ _rules_result.gathered.source_ip }}"
+            destination_ip: "{{ _rules_result.gathered.destination_ip }}"
+            category: "{{ _rules_result.gathered.category }}"
+            application: "{{ _rules_result.gathered.application }}"
+            service: "{{ _rules_result.gathered.service }}"
+            action: "{{ _rules_result.gathered.action }}"
+            tag_name: "{{ tag_name_list }}"
+            state: replaced
+            commit: "False"
+          when: '"ansible" in _rules_result.rule_details.tag_name'
       when:
         - payload.admin == "admin"
-        - payload.cmd == "set"
-        - payload.result == "Succeeded"
-        - '"rulebase security rules" in payload.path'
-
-    - name: COMPLIANCE - ADD TAG TO THE LIST
-      set_fact: 
-        tag_name_list: "{{ tag_name_list + tag_name }}"
-      when:
-        - payload.cmd == "set"
-        - payload.result == "Succeeded"
-        - '"rulebase security rules" in payload.path'
-        - '"manual" in tag_name_list'
-
-    - name: MAKE SURE manual TAG EXISTS
-      paloaltonetworks.panos.panos_tag_object:
-        provider: "{{ panos_provider }}"
-        name: 'manual'
-        color: 'red'
-        comments: 'Manually created rule'
-      when:
-        - payload.admin == "adminmanual"
-        - payload.cmd == "set"
-        - payload.result == "Succeeded"
-        - '"rulebase security rules" in payload.path'
-
-    - name: MAKE SURE ansible TAG EXISTS
-      paloaltonetworks.panos.panos_tag_object:
-        provider: "{{ panos_provider }}"
-        name: 'ansible'
-        color: 'green'
-        comments: 'Ansible created rule'
-      when:
-        - payload.admin == "admin"
-        - payload.cmd == "set"
-        - payload.result == "Succeeded"
-        - '"rulebase security rules" in payload.path'
-
-    - name: COMPLIANCE - ADD manual TAG TO ADDED RULES
-      paloaltonetworks.panos.panos_security_rule:
-        provider: "{{ panos_provider }}"
-        rule_name: "{{ _rules_result.gathered.rule_name }}"
-        description: "{{ _rules_result.gathered.description }}"
-        source_zone: "{{ _rules_result.gathered.source_zone }}"
-        destination_zone: "{{ _rules_result.gathered.destination_zone }}"
-        source_ip: "{{ _rules_result.gathered.source_ip }}"
-        destination_ip: "{{ _rules_result.gathered.destination_ip }}"
-        category: "{{ _rules_result.gathered.category }}"
-        application: "{{ _rules_result.gathered.application }}"
-        service: "{{ _rules_result.gathered.service }}"
-        action: "{{ _rules_result.gathered.action }}"
-        tag_name: "{{ tag_name_list }}"
-        state: present
-        commit: "False"
-      when:
-        - payload.cmd == "set"
+        - payload.cmd == "set" or payload.cmd == "edit"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
 
