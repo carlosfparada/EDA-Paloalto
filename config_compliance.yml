@@ -31,7 +31,7 @@
 
     - name: COMPLIANCE - Set facts when tag_name is defined
       set_fact:
-        tag_name: _rules_result.gathered.tag_name
+        tag_name_list: _rules_result.gathered.tag_name
       when: _rules_result.gathered.tag_name is defined
 
     # - name: COMPLIANCE - Set facts when tag_name is undefined
