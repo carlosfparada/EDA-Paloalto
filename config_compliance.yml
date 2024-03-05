@@ -64,12 +64,18 @@
         - '"rulebase security rules" in payload.path'
         #- '"manual" in _rules_result.rule_details.tag_name'
 
-    # - name: MAKE SURE ansible TAG EXISTS
-    #   paloaltonetworks.panos.panos_tag_object:
-    #     provider: "{{ panos_provider }}"
-    #     name: 'ansible'
-    #     color: 'green'
-    #     comments: 'Ansible created rule'
+    - name: MAKE SURE ansible TAG EXISTS
+      paloaltonetworks.panos.panos_tag_object:
+        provider: "{{ panos_provider }}"
+        name: 'ansible'
+        color: 'green'
+        comments: 'Ansible created rule'
+      when:
+        - payload.admin == "admin"
+        - payload.cmd == "set"
+        - payload.result == "Succeeded"
+        - '"rulebase security rules" in payload.path'
+        #- '"manual" in _rules_result.rule_details.tag_name'
 
     - name: COMPLIANCE - ADD manual TAG TO ADDED RULES
       paloaltonetworks.panos.panos_security_rule:
