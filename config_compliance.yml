@@ -35,14 +35,14 @@
         tag_name: _rules_result.gathered.tag_name
       when: _rules_result.gathered.tag_name is defined
 
-    - name: COMPLIANCE - Set facts when tag_name is undefined
-      set_fact:
-        tag_name: []
-      when: _rules_result.gathered.tag_name is undefined
+    # - name: COMPLIANCE - Set facts when tag_name is undefined
+    #   set_fact:
+    #     tag_name: []
+    #   when: _rules_result.gathered.tag_name is undefined
 
     - name: COMPLIANCE - ADD TAG TO THE LIST VAR IF NEEDED
       set_fact: 
-        tag_name: "{{ tag_name + ['manual'] }}"
+        tag_name: "{{ tag_name | default([])  + ['manual'] }}"
       when:
         - payload.admin == "adminmanual"
         - payload.cmd == "set"
