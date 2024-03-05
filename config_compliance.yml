@@ -49,7 +49,7 @@
         - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
-        #- '"manual" in _rules_result.rule_details.tag_name'
+        - '"manual" in _rules_result.rule_details.tag_name' or '"anible" in _rules_result.rule_details.tag_name'
 
     - name: MAKE SURE manual TAG EXISTS
       paloaltonetworks.panos.panos_tag_object:
@@ -62,7 +62,6 @@
         - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
-        #- '"manual" in _rules_result.rule_details.tag_name'
 
     - name: MAKE SURE ansible TAG EXISTS
       paloaltonetworks.panos.panos_tag_object:
@@ -75,7 +74,6 @@
         - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
-        #- '"manual" in _rules_result.rule_details.tag_name'
 
     - name: COMPLIANCE - ADD manual TAG TO ADDED RULES
       paloaltonetworks.panos.panos_security_rule:
@@ -92,12 +90,9 @@
         action: "{{ _rules_result.gathered.action }}"
         tag_name: "{{ tag_name_list }}"
         state: replaced
-        #log_setting: default
         commit: "False"
       when:
-        - payload.admin == "adminmanual"
         - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
-        #- '"manual" in _rules_result.rule_details.tag_name'
 
