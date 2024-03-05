@@ -8,6 +8,7 @@
     - vars/main.yml
   vars:
     payload: "{{ ansible_eda.event.payload }}"
+    tag_name: []
   tasks:
     - name: COMPLIANCE - DEBUG EVENT
       debug:
