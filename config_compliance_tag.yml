@@ -27,7 +27,7 @@
             tag_name_list: "{{ _rules_result.gathered.tag_name | default([], true) }}"
             tag_name: ['manual']
 
-        - name: COMPLIANCE - REMOVE ansible TAG TO THE LIST
+        - name: COMPLIANCE - ADD ansible TAG TO THE LIST
           set_fact: 
             tag_name_list: "{{ tag_name_list + tag_name }}"
           when: '"manual" not in tag_name_list'
