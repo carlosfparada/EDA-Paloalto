@@ -23,20 +23,28 @@
         - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
+      when:
+        - payload.cmd == "set"
+        - payload.result == "Succeeded"
+        - '"rulebase security rules" in payload.path'
       register: _rules_result
 
     - name: COMPLIANCE - DEBUG RULE
       debug:
         var: _rules_result
-
-    - name: COMPLIANCE - Set facts when tag_name is defined
-      set_fact:
-        tag_name_list: _rules_result.gathered.tag_name
-      when: _rules_result.gathered.tag_name is defined
+      when:
+        - payload.cmd == "set"
+        - payload.result == "Succeeded"
+        - '"rulebase security rules" in payload.path'
 
     - name: COMPLIANCE - SET tag_name
       set_fact:
+        tag_name_list: _rules_result.gathered.tag_name | default([])
         tag_name: ["manual"]
+      when:
+        - payload.cmd == "set"
+        - payload.result == "Succeeded"
+        - '"rulebase security rules" in payload.path'
 
     - name: COMPLIANCE - ADD TAG TO THE LIST VAR
       set_fact: 
@@ -54,6 +62,12 @@
         name: 'manual'
         color: 'red'
         comments: 'Manually created rule'
+      when:
+        - payload.admin == "adminmanual"
+        - payload.cmd == "set"
+        - payload.result == "Succeeded"
+        - '"rulebase security rules" in payload.path'
+        #- '"manual" in _rules_result.rule_details.tag_name'
 
     # - name: MAKE SURE ansible TAG EXISTS
     #   paloaltonetworks.panos.panos_tag_object:
