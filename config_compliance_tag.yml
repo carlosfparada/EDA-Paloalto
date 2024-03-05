@@ -7,7 +7,7 @@
   vars_files:
     - vars/main.yml
   tasks:
-  
+
     - name: COMPLIANCE - SET EVENT VAR
       set_fact:
         payload: "{{ ansible_eda.event.payload }}"
@@ -27,10 +27,14 @@
             tag_name_list: "{{ _rules_result.gathered.tag_name | default([], true) }}"
             tag_name: ['manual']
 
-        - name: COMPLIANCE - ADD manual TAG TO THE LIST
+        - name: COMPLIANCE - REMOVE ansible TAG TO THE LIST
           set_fact: 
             tag_name_list: "{{ tag_name_list + tag_name }}"
           when: '"manual" not in tag_name_list'
+
+        - name: COMPLIANCE - REMOVE ansible TAG (IF EXISTS) FROM THE LIST
+          set_fact: 
+            tag_name_list: "{{ tag_name_list | reject ('search', 'ansible') }}"
 
         - name: MAKE SURE manual TAG EXISTS
           paloaltonetworks.panos.panos_tag_object:
@@ -69,6 +73,10 @@
           set_fact: 
             tag_name_list: "{{ tag_name_list + tag_name }}"
           when: '"ansible" not in tag_name_list'
+
+        - name: COMPLIANCE - REMOVE manual TAG (IF EXISTS) FROM THE LIST
+          set_fact: 
+            tag_name_list: "{{ tag_name_list | reject ('search', 'manual') }}"
 
         - name: MAKE SURE ansible TAG EXISTS
           paloaltonetworks.panos.panos_tag_object:
