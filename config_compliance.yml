@@ -23,10 +23,6 @@
         - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
-      when:
-        - payload.cmd == "set"
-        - payload.result == "Succeeded"
-        - '"rulebase security rules" in payload.path'
       register: _rules_result
 
     - name: COMPLIANCE - DEBUG RULE
