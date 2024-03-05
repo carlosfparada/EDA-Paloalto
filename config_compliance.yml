@@ -39,7 +39,7 @@
 
     - name: COMPLIANCE - SET tag_name
       set_fact:
-        tag_name_list: _rules_result.gathered.tag_name | default([])
+        tag_name_list: "{{ _rules_result.gathered.tag_name | default([]) }}"
         tag_name: ['manual','manual2']
       when:
         - payload.cmd == "set"
