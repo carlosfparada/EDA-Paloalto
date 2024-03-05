@@ -49,7 +49,7 @@
         - payload.cmd == "set"
         - payload.result == "Succeeded"
         - '"rulebase security rules" in payload.path'
-        - '"manual" in _rules_result.rule_details.tag_name' or '"anible" in _rules_result.rule_details.tag_name'
+        - '"manual" in _rules_result.rule_details.tag_name or "anible" in _rules_result.rule_details.tag_name'
 
     - name: MAKE SURE manual TAG EXISTS
       paloaltonetworks.panos.panos_tag_object:
