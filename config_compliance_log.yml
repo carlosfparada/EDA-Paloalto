@@ -36,7 +36,7 @@
             application: "{{ _rules_result.gathered.application }}"
             service: "{{ _rules_result.gathered.service }}"
             action: "{{ _rules_result.gathered.action }}"
-            tag_name: "{{ _rules_result.gathered.tag_name }}"            
+            tag_name: "{{ _rules_result.gathered.tag_name | default(omit) }}"            
             log_start: true
             log_end: true
             #state: replaced
@@ -67,7 +67,7 @@
             application: "{{ _rules_result.gathered.application }}"
             service: "{{ _rules_result.gathered.service }}"
             action: "{{ _rules_result.gathered.action }}"
-            tag_name: "{{ _rules_result.gathered.tag_name }}"
+            tag_name: "{{ _rules_result.gathered.tag_name | default(omit) }}"
             log_start: true
             log_end: true
             #state: replaced
