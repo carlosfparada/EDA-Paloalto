@@ -29,7 +29,8 @@
             rule_name: "{{ _rules_result.gathered.rule_name }}"
             log_start: true
             log_end: true
-            state: replaced
+            #state: replaced
+            state: present
 
       when: payload.admin == "adminmanual"
 
@@ -49,7 +50,8 @@
             rule_name: "{{ _rules_result.gathered.rule_name }}"
             log_start: true
             log_end: true
-            state: replaced
+            #state: replaced
+            state: present
 
       when: payload.admin == "admin"
 

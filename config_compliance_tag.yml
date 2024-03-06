@@ -48,7 +48,8 @@
             provider: "{{ panos_provider }}"
             rule_name: "{{ _rules_result.gathered.rule_name }}"
             tag_name: "{{ tag_name_list }}"
-            state: replaced
+            #state: replaced
+            state: present
 
       when: payload.admin == "adminmanual"
 
@@ -88,7 +89,8 @@
             provider: "{{ panos_provider }}"
             rule_name: "{{ _rules_result.gathered.rule_name }}"
             tag_name: "{{ tag_name_list }}"
-            state: replaced
+            #state: replaced
+            state: present
 
       when: payload.admin == "admin"
 
