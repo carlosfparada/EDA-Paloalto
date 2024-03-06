@@ -20,13 +20,13 @@
             provider: '{{ panos_provider }}'
             rule_name: "{{ payload.path | regex_search('.*rulebase security rules  (.*)','\\1') | first}}"
             state: gathered
-          register: _rules_result
+          register: _rules_result_log
           when: payload.admin == "adminmanual"
 
         - name: COMPLIANCE LOG - SET LOGS TO log_start AND log_end (adminmanual)
           paloaltonetworks.panos.panos_security_rule:
             provider: "{{ panos_provider }}"
-            rule_name: "{{ _rules_result.gathered.rule_name }}"
+            rule_name: "{{ _rules_result_log.gathered.rule_name }}"
             log_start: true
             log_end: true
             #state: replaced
@@ -42,12 +42,12 @@
             provider: '{{ panos_provider }}'
             rule_name: "{{ payload.after_change_detail.split(' ')[2] }}"
             state: gathered
-          register: _rules_result
+          register: _rules_result_log
 
         - name: COMPLIANCE LOG - SET LOGS TO log_start AND log_end (admin)
           paloaltonetworks.panos.panos_security_rule:
             provider: "{{ panos_provider }}"
-            rule_name: "{{ _rules_result.gathered.rule_name }}"
+            rule_name: "{{ _rules_result_log.gathered.rule_name }}"
             log_start: true
             log_end: true
             #state: replaced
