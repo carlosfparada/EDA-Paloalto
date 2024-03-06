@@ -1,6 +1,6 @@
 ---
 
-- name: Firewalls Palo Alto compliance LOG
+- name: Firewalls Palo Alto Compliance log
   hosts: panos
   connection: local
   gather_facts: no
