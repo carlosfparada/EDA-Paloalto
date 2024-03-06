@@ -17,14 +17,14 @@
         #     var: event.payload
         - print_event:
             pretty: true
-        # Config tag compliance
-        - run_job_template:
-            organization: "Default"
-            name: "EDA Paloalto: config compliance tag"
         # Config log compliance
         - run_job_template:
             organization: "Default"
             name: "EDA Paloalto: config compliance log"
+        # Config tag compliance
+        - run_job_template:
+            organization: "Default"
+            name: "EDA Paloalto: config compliance tag"
         # Remediation Template
         # - run_job_template:
         #     organization: "Default"
