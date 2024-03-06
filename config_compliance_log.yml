@@ -40,7 +40,7 @@
             log_start: true
             log_end: true
             state: replaced
-            commit: "False"
+            commit: true
 
       when: payload.admin == "adminmanual"
 
