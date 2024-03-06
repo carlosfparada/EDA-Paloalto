@@ -1,6 +1,6 @@
 ---
 
-- name: Firewalls Palo Alto setup
+- name: Firewalls Palo Alto compliance tag
   hosts: panos
   connection: local
   gather_facts: no
@@ -8,42 +8,42 @@
     - vars/main.yml
   tasks:
 
-    - name: COMPLIANCE - SET EVENT VAR
+    - name: COMPLIANCE TAG - SET EVENT VAR
       set_fact:
         payload: "{{ ansible_eda.event.payload }}"
 
-    - name: COMPLIANCE - POLICY MANUAL CHANGE
+    - name: COMPLIANCE TAG - POLICY MANUAL CHANGE
       block:
 
-        - name: COMPLIANCE - GET INFO ON ADDED RULES
+        - name: COMPLIANCE TAG - GET INFO ON ADDED RULES
           paloaltonetworks.panos.panos_security_rule:
             provider: '{{ panos_provider }}'
             rule_name: "{{ payload.path | regex_search('.*rulebase security rules  (.*)','\\1') | first}}"
             state: gathered
           register: _rules_result
 
-        - name: COMPLIANCE - SET manual TAG
+        - name: COMPLIANCE TAG - SET manual TAG
           set_fact:
             tag_name_list: "{{ _rules_result.gathered.tag_name | default([], true) }}"
             tag_name: ['manual']
 
-        - name: COMPLIANCE - ADD ansible TAG TO THE LIST
+        - name: COMPLIANCE TAG - ADD ansible TAG TO THE LIST
           set_fact: 
             tag_name_list: "{{ tag_name_list + tag_name }}"
           when: '"manual" not in tag_name_list'
 
-        - name: COMPLIANCE - REMOVE ansible TAG (IF EXISTS) FROM THE LIST
+        - name: COMPLIANCE TAG - REMOVE ansible TAG (IF EXISTS) FROM THE LIST
           set_fact: 
             tag_name_list: "{{ tag_name_list | reject ('search', 'ansible') }}"
 
-        - name: MAKE SURE manual TAG EXISTS
+        - name: COMPLIANCE TAG - MAKE SURE manual TAG EXISTS
           paloaltonetworks.panos.panos_tag_object:
             provider: "{{ panos_provider }}"
             name: 'manual'
             color: 'red'
             comments: 'Manually created rule'
 
-        - name: COMPLIANCE - ADD manual TAG TO ADDED RULES
+        - name: COMPLIANCE TAG - ADD manual TAG TO ADDED RULES
           paloaltonetworks.panos.panos_security_rule:
             provider: "{{ panos_provider }}"
             rule_name: "{{ _rules_result.gathered.rule_name }}"
@@ -61,38 +61,38 @@
             commit: "False"
       when: payload.admin == "adminmanual"
 
-    - name: COMPLIANCE - POLICY ANSIBLE CHANGE
+    - name: COMPLIANCE TAG - POLICY ANSIBLE CHANGE
       block:
 
-        - name: COMPLIANCE - GET INFO ON ADDED RULES
+        - name: COMPLIANCE TAG - GET INFO ON ADDED RULES
           paloaltonetworks.panos.panos_security_rule:
             provider: '{{ panos_provider }}'
             rule_name: "{{ payload.after_change_detail.split(' ')[2] }}"
             state: gathered
           register: _rules_result
 
-        - name: COMPLIANCE - SET ansible TAG
+        - name: COMPLIANCE TAG - SET ansible TAG
           set_fact:
             tag_name_list: "{{ _rules_result.gathered.tag_name | default([], true) }}"
             tag_name: ['ansible']
 
-        - name: COMPLIANCE - ADD ansible TAG TO THE LIST
+        - name: COMPLIANCE TAG - ADD ansible TAG TO THE LIST
           set_fact: 
             tag_name_list: "{{ tag_name_list + tag_name }}"
           when: '"ansible" not in tag_name_list'
 
-        - name: COMPLIANCE - REMOVE manual TAG (IF EXISTS) FROM THE LIST
+        - name: COMPLIANCE TAG - REMOVE manual TAG (IF EXISTS) FROM THE LIST
           set_fact: 
             tag_name_list: "{{ tag_name_list | reject ('search', 'manual') }}"
 
-        - name: MAKE SURE ansible TAG EXISTS
+        - name: COMPLIANCE TAG - MAKE SURE ansible TAG EXISTS
           paloaltonetworks.panos.panos_tag_object:
             provider: "{{ panos_provider }}"
             name: 'ansible'
             color: 'red'
             comments: 'Ansible created rule'
 
-        - name: COMPLIANCE - ADD ansible TAG TO ADDED RULES
+        - name: COMPLIANCE TAG - ADD ansible TAG TO ADDED RULES
           paloaltonetworks.panos.panos_security_rule:
             provider: "{{ panos_provider }}"
             rule_name: "{{ _rules_result.gathered.rule_name }}"
