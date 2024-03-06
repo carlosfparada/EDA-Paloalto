@@ -22,9 +22,9 @@
             organization: "Default"
             name: "EDA Paloalto: config compliance tag"
         # Config log compliance
-        - run_job_template:
-            organization: "Default"
-            name: "EDA Paloalto: config compliance log"
+        # - run_job_template:
+        #     organization: "Default"
+        #     name: "EDA Paloalto: config compliance log"
         # Remediation Template
         # - run_job_template:
         #     organization: "Default"
