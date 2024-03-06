@@ -92,6 +92,6 @@
 
       when: payload.admin == "admin"
 
-    - name: COMPLIANCE TAG - COMMIT
-      paloaltonetworks.panos.panos_commit:
-        provider: "{{ panos_provider }}"
+    # - name: COMPLIANCE TAG - COMMIT
+    #   paloaltonetworks.panos.panos_commit:
+    #     provider: "{{ panos_provider }}"

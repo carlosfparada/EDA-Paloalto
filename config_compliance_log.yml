@@ -53,6 +53,6 @@
 
       when: payload.admin == "admin"
 
-    - name: COMPLIANCE LOG - COMMIT
-      paloaltonetworks.panos.panos_commit:
-        provider: "{{ panos_provider }}"
+    # - name: COMPLIANCE LOG - COMMIT
+    #   paloaltonetworks.panos.panos_commit:
+    #     provider: "{{ panos_provider }}"
