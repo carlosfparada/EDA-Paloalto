@@ -20,11 +20,11 @@
             provider: '{{ panos_provider }}'
             rule_name: "{{ payload.path | regex_search('.*rulebase security rules  (.*)','\\1') | first}}"
             state: gathered
-          register: _rules_result_tag
+          register: _rules_result
 
         - name: COMPLIANCE TAG - SET manual TAG (adminmanual)
           set_fact:
-            tag_name_list: "{{ _rules_result_tag.gathered.tag_name | default([], true) }}"
+            tag_name_list: "{{ _rules_result.gathered.tag_name | default([], true) }}"
             tag_name: ['manual']
 
         - name: COMPLIANCE TAG - ADD ansible TAG TO THE LIST (adminmanual)
@@ -46,7 +46,7 @@
         - name: COMPLIANCE TAG - ADD manual TAG TO ADDED RULES (adminmanual)
           paloaltonetworks.panos.panos_security_rule:
             provider: "{{ panos_provider }}"
-            rule_name: "{{ _rules_result_tag.gathered.rule_name }}"
+            rule_name: "{{ _rules_result.gathered.rule_name }}"
             description: "{{ _rules_result.gathered.description }}"
             source_zone: "{{ _rules_result.gathered.source_zone }}"
             destination_zone: "{{ _rules_result.gathered.destination_zone }}"
@@ -72,11 +72,11 @@
             provider: '{{ panos_provider }}'
             rule_name: "{{ payload.after_change_detail.split(' ')[2] }}"
             state: gathered
-          register: _rules_result_tag
+          register: _rules_result
 
         - name: COMPLIANCE TAG - SET ansible TAG (admin)
           set_fact:
-            tag_name_list: "{{ _rules_result_tag.gathered.tag_name | default([], true) }}"
+            tag_name_list: "{{ _rules_result.gathered.tag_name | default([], true) }}"
             tag_name: ['ansible']
 
         - name: COMPLIANCE TAG - ADD ansible TAG TO THE LIST (admin)
@@ -98,7 +98,7 @@
         - name: COMPLIANCE TAG - ADD ansible TAG TO ADDED RULES (admin)
           paloaltonetworks.panos.panos_security_rule:
             provider: "{{ panos_provider }}"
-            rule_name: "{{ _rules_result_tag.gathered.rule_name }}"
+            rule_name: "{{ _rules_result.gathered.rule_name }}"
             description: "{{ _rules_result.gathered.description }}"
             source_zone: "{{ _rules_result.gathered.source_zone }}"
             destination_zone: "{{ _rules_result.gathered.destination_zone }}"
