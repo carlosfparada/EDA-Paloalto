@@ -92,7 +92,7 @@
           paloaltonetworks.panos.panos_tag_object:
             provider: "{{ panos_provider }}"
             name: 'ansible'
-            color: 'red'
+            color: 'green'
             comments: 'Ansible created rule'
 
         - name: COMPLIANCE TAG - ADD ansible TAG TO ADDED RULES (admin)
