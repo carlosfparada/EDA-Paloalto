@@ -58,7 +58,7 @@
             # action: "{{ _rules_result.gathered.action }}"
             tag_name: "{{ tag_name_list }}"
             state: replaced
-            commit: "False"
+            commit: true
 
       when: payload.admin == "adminmanual"
 
@@ -108,7 +108,7 @@
             # action: "{{ _rules_result.gathered.action }}"
             tag_name: "{{ tag_name_list }}"
             state: replaced
-            commit: "False"
+            commit: true
 
       when: payload.admin == "admin"
 
