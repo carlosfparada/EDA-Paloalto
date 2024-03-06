@@ -13,8 +13,8 @@
       condition: event.payload.type == "CONFIG" and event.payload.cmd == "set" and event.payload.result == "Succeeded" and event.payload.path is search ("rulebase security rules")
       actions:
         # Debug
-        - debug: 
-            var: event.payload
+        # - debug: 
+        #     var: event.payload
         - print_event:
             pretty: true
         # Config tag compliance
