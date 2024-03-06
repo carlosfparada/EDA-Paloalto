@@ -47,15 +47,6 @@
           paloaltonetworks.panos.panos_security_rule:
             provider: "{{ panos_provider }}"
             rule_name: "{{ _rules_result.gathered.rule_name }}"
-            # description: "{{ _rules_result.gathered.description }}"
-            # source_zone: "{{ _rules_result.gathered.source_zone }}"
-            # destination_zone: "{{ _rules_result.gathered.destination_zone }}"
-            # source_ip: "{{ _rules_result.gathered.source_ip }}"
-            # destination_ip: "{{ _rules_result.gathered.destination_ip }}"
-            # category: "{{ _rules_result.gathered.category }}"
-            # application: "{{ _rules_result.gathered.application }}"
-            # service: "{{ _rules_result.gathered.service }}"
-            # action: "{{ _rules_result.gathered.action }}"
             tag_name: "{{ tag_name_list }}"
             state: replaced
 
@@ -96,15 +87,6 @@
           paloaltonetworks.panos.panos_security_rule:
             provider: "{{ panos_provider }}"
             rule_name: "{{ _rules_result.gathered.rule_name }}"
-            # description: "{{ _rules_result.gathered.description }}"
-            # source_zone: "{{ _rules_result.gathered.source_zone }}"
-            # destination_zone: "{{ _rules_result.gathered.destination_zone }}"
-            # source_ip: "{{ _rules_result.gathered.source_ip }}"
-            # destination_ip: "{{ _rules_result.gathered.destination_ip }}"
-            # category: "{{ _rules_result.gathered.category }}"
-            # application: "{{ _rules_result.gathered.application }}"
-            # service: "{{ _rules_result.gathered.service }}"
-            # action: "{{ _rules_result.gathered.action }}"
             tag_name: "{{ tag_name_list }}"
             state: replaced
 

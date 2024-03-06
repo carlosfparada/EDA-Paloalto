@@ -23,20 +23,10 @@
           register: _rules_result
           when: payload.admin == "adminmanual"
 
-        - name: COMPLIANCE LOG - SET LOGS TO log_start (adminmanual)
+        - name: COMPLIANCE LOG - SET LOGS TO log_start AND log_end (adminmanual)
           paloaltonetworks.panos.panos_security_rule:
             provider: "{{ panos_provider }}"
             rule_name: "{{ _rules_result.gathered.rule_name }}"
-            # description: "{{ _rules_result.gathered.description }}"
-            # source_zone: "{{ _rules_result.gathered.source_zone }}"
-            # destination_zone: "{{ _rules_result.gathered.destination_zone }}"
-            # source_ip: "{{ _rules_result.gathered.source_ip }}"
-            # destination_ip: "{{ _rules_result.gathered.destination_ip }}"
-            # category: "{{ _rules_result.gathered.category }}"
-            # application: "{{ _rules_result.gathered.application }}"
-            # service: "{{ _rules_result.gathered.service }}"
-            # action: "{{ _rules_result.gathered.action }}"
-            # tag_name: "{{ _rules_result.gathered.tag_name }}"
             log_start: true
             log_end: true
             state: replaced
@@ -53,20 +43,10 @@
             state: gathered
           register: _rules_result
 
-        - name: COMPLIANCE LOG - SET LOGS TO log_start (admin)
+        - name: COMPLIANCE LOG - SET LOGS TO log_start AND log_end (admin)
           paloaltonetworks.panos.panos_security_rule:
             provider: "{{ panos_provider }}"
             rule_name: "{{ _rules_result.gathered.rule_name }}"
-            # description: "{{ _rules_result.gathered.description }}"
-            # source_zone: "{{ _rules_result.gathered.source_zone }}"
-            # destination_zone: "{{ _rules_result.gathered.destination_zone }}"
-            # source_ip: "{{ _rules_result.gathered.source_ip }}"
-            # destination_ip: "{{ _rules_result.gathered.destination_ip }}"
-            # category: "{{ _rules_result.gathered.category }}"
-            # application: "{{ _rules_result.gathered.application }}"
-            # service: "{{ _rules_result.gathered.service }}"
-            # action: "{{ _rules_result.gathered.action }}"
-            # tag_name: "{{ _rules_result.gathered.tag_name }}"
             log_start: true
             log_end: true
             state: replaced
