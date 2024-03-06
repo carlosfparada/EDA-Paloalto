@@ -21,7 +21,7 @@
         - run_job_template:
             organization: "Default"
             name: "EDA Paloalto: config compliance tag"
-        # Config tag compliance
+        # Config log compliance
         - run_job_template:
             organization: "Default"
             name: "EDA Paloalto: config compliance log"
