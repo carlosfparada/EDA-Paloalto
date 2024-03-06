@@ -56,8 +56,8 @@
             application: "{{ _rules_result.gathered.application }}"
             service: "{{ _rules_result.gathered.service }}"
             action: "{{ _rules_result.gathered.action }}"
-            log_start: "{{ _rules_result.gathered.log_start | default(omit) }}"
-            log_end: "{{ _rules_result.gathered.log_end | default(omit)  }}"            
+            log_start: "{{ _rules_result.gathered.log_start | default(false, true) }}"
+            log_end: "{{ _rules_result.gathered.log_end | default(true, true) }}"          
             tag_name: "{{ tag_name_list }}"
             #state: replaced
             state: present
