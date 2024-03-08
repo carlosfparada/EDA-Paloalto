@@ -8,4 +8,4 @@
     - vars/main.yml
   tasks:
     - name: Rules Provisioning
-      include_tasks: rule_main.yml
+      include_tasks: rule_main_delete.yml
