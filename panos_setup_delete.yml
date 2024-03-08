@@ -45,7 +45,7 @@
     #       </entry>
     #     state: absent
 
-    - name: Create log forwarding profile match list
+    - name: Delete log forwarding profile match list
       paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
         provider: '{{ panos_provider }}'
         log_forwarding_profile: '{{ forwarding_profile_name }}'
@@ -56,7 +56,7 @@
         state: absent
 
     # Log Forwarding Profile
-    - name: Create log forwarding profile
+    - name: Delete log forwarding profile
       paloaltonetworks.panos.panos_log_forwarding_profile:
         provider: '{{ panos_provider }}'
         name: '{{ forwarding_profile_name }}'
