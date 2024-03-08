@@ -49,35 +49,35 @@
 
     # HTTP Server Profile
     # https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-admin/monitoring/use-syslog-for-monitoring/syslog-field-descriptions/config-log-fields 
-    - name: Delete a HTTP Server Profile for Config Logs
-      paloaltonetworks.panos.panos_http_profile:
-        provider: "{{ panos_provider }}"
-        name: "{{ profile_name }}"
-        config_name: "{{ config_profile_name }}"
-        config_uri_format: '/test'
-        config_payload: >
-          {
-              "receive_time": "$receive_time",
-              "device_name": "$device_name",
-              "serial": "$serial",
-              "host": "$host",
-              "seqno": "$seqno",
-              "type": "$type",
-              "dg_id": "$dg_id",
-              "type": "$type",
-              "subtype": "$subtype",
-              "vsys": "$vsys",
-              "vsys_name": "$vsys_name",
-              "admin": "$admin",
-              "client": "$client",
-              "cmd": "$cmd",
-              "path": "$path",
-              "result": "$result",
-              "comment": "$comment",
-              "before_change_detail": "$before-change-detail",
-              "after_change_detail": "$after-change-detail"
-          }
-        state: absent
+    # - name: Delete a HTTP Server Profile for Config Logs
+    #   paloaltonetworks.panos.panos_http_profile:
+    #     provider: "{{ panos_provider }}"
+    #     name: "{{ profile_name }}"
+    #     config_name: "{{ config_profile_name }}"
+    #     config_uri_format: '/test'
+    #     config_payload: >
+    #       {
+    #           "receive_time": "$receive_time",
+    #           "device_name": "$device_name",
+    #           "serial": "$serial",
+    #           "host": "$host",
+    #           "seqno": "$seqno",
+    #           "type": "$type",
+    #           "dg_id": "$dg_id",
+    #           "type": "$type",
+    #           "subtype": "$subtype",
+    #           "vsys": "$vsys",
+    #           "vsys_name": "$vsys_name",
+    #           "admin": "$admin",
+    #           "client": "$client",
+    #           "cmd": "$cmd",
+    #           "path": "$path",
+    #           "result": "$result",
+    #           "comment": "$comment",
+    #           "before_change_detail": "$before-change-detail",
+    #           "after_change_detail": "$after-change-detail"
+    #       }
+    #     state: absent
 
     - name: Delete HTTP server
       paloaltonetworks.panos.panos_http_server:
