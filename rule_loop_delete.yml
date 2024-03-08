@@ -45,15 +45,3 @@
     #log_setting: default
     commit: "False"
     state: absent
-
-# Delete an L3 zone.
-- name: Delete private and public zone
-  paloaltonetworks.panos.panos_zone:
-    provider: "{{ panos_provider }}"
-    zone: "{{ item }}"
-    mode: 'layer3'
-    #zone_profile: 'strict'
-    state: absent
-  with_items:
-    - public
-    - private
