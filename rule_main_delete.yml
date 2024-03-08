@@ -16,7 +16,6 @@
     provider: "{{ panos_provider }}"
     zone: "{{ item }}"
     mode: 'layer3'
-    #zone_profile: 'strict'
     state: absent
   with_items:
     - public
