@@ -30,21 +30,6 @@
     - vars/main.yml
   tasks:
 
-    # set shared log-settings config match-list "Config Logs" filter "All Logs" send-http {{ profile_name }}
-    # - name: Forward Config Logs to EDA source
-    #   paloaltonetworks.panos.panos_type_cmd:
-    #     provider: '{{ panos_provider }}'
-    #     cmd: delete  # default
-    #     xpath: "/config/shared/log-settings/config/match-list"
-    #     element: |
-    #       <entry name="{{ config_log_name }}">
-    #         <send-http>
-    #           <member>{{ profile_name }}</member>
-    #         </send-http>
-    #         <filter>{{ log_filter }}</filter>
-    #       </entry>
-    #     state: absent
-
     - name: Delete log forwarding profile match list
       paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
         provider: '{{ panos_provider }}'
