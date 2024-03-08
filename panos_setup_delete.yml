@@ -29,16 +29,40 @@
   vars_files:
     - vars/main.yml
   tasks:
-    # - name: Create policy rules
-    #   include_tasks: rule_main.yml
+    - name: Create policy rules
+      include_tasks: rule_main.yml
 
-    - name: Create admin user for manual changes
-      paloaltonetworks.panos.panos_administrator:
+    # set shared log-settings config match-list "Config Logs" filter "All Logs" send-http {{ profile_name }}
+    - name: Forward Config Logs to EDA source
+      paloaltonetworks.panos.panos_type_cmd:
         provider: '{{ panos_provider }}'
-        admin_username: '{{ admin_username }}'
-        admin_password: '{{ admin_password }}'
-        superuser: true
-      
+        cmd: delete  # default
+        xpath: "/config/shared/log-settings/config/match-list"
+        element: |
+          <entry name="{{ config_log_name }}">
+            <send-http>
+              <member>{{ profile_name }}</member>
+            </send-http>
+            <filter>{{ log_filter }}</filter>
+          </entry>
+
+    - name: Create log forwarding profile match list
+      paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
+        provider: '{{ panos_provider }}'
+        log_forwarding_profile: '{{ forwarding_profile_name }}'
+        name: '{{ forwarding_profile_name_match_list }}'
+        #log_type: traffic  # default
+        filter: '{{ log_filter }}'
+        http_profiles: ['{{ profile_name }}']
+        state: absent
+
+    # Log Forwarding Profile
+    - name: Create log forwarding profile
+      paloaltonetworks.panos.panos_log_forwarding_profile:
+        provider: '{{ panos_provider }}'
+        name: '{{ forwarding_profile_name }}'
+        state: absent
+
     # HTTP Server Profile
     # https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-admin/monitoring/use-syslog-for-monitoring/syslog-field-descriptions/config-log-fields 
     - name: Create a HTTP Server Profile for Config Logs
@@ -47,6 +71,7 @@
         name: "{{ profile_name }}"
         config_name: "{{ config_profile_name }}"
         config_uri_format: '/test'
+        state: absent
         config_payload: >
           {
               "receive_time": "$receive_time",
@@ -79,52 +104,16 @@
         protocol: "{{ http_protocol }}"
         http_method: "{{ http_method }}"
         http_port: "{{ http_port }}"
+        state: delete
 
-    - name: Add a HTTP header to HTTP Server Profile
-      paloaltonetworks.panos.panos_http_profile_header:
+    - name: Create admin user for manual changes
+      paloaltonetworks.panos.panos_administrator:
         provider: '{{ panos_provider }}'
-        http_profile: '{{ profile_name }}'
-        log_type: 'config'
-        header: 'Content-Type'
-        value: 'application/json'
-
-    - name: Add a param to the config log type
-      paloaltonetworks.panos.panos_http_profile_param:
-        provider: '{{ panos_provider }}'
-        http_profile: '{{ profile_name }}'
-        log_type: 'config'
-        param: 'serial'
-        value: '$serial'
-
-    # Log Forwarding Profile
-    - name: Create log forwarding profile
-      paloaltonetworks.panos.panos_log_forwarding_profile:
-        provider: '{{ panos_provider }}'
-        name: '{{ forwarding_profile_name }}'
-
-    - name: Create log forwarding profile match list
-      paloaltonetworks.panos.panos_log_forwarding_profile_match_list:
-        provider: '{{ panos_provider }}'
-        log_forwarding_profile: '{{ forwarding_profile_name }}'
-        name: '{{ forwarding_profile_name_match_list }}'
-        #log_type: traffic  # default
-        filter: '{{ log_filter }}'
-        http_profiles: ['{{ profile_name }}']
-
-    # set shared log-settings config match-list "Config Logs" filter "All Logs" send-http {{ profile_name }}
-    - name: Forward Config Logs to EDA source
-      paloaltonetworks.panos.panos_type_cmd:
-        provider: '{{ panos_provider }}'
-        cmd: set  # default
-        xpath: "/config/shared/log-settings/config/match-list"
-        element: |
-          <entry name="{{ config_log_name }}">
-            <send-http>
-              <member>{{ profile_name }}</member>
-            </send-http>
-            <filter>{{ log_filter }}</filter>
-          </entry>
-
+        admin_username: '{{ admin_username }}'
+        admin_password: '{{ admin_password }}'
+        superuser: true
+        state: absent
+        
     - name: Commit configuration
       paloaltonetworks.panos.panos_commit_firewall:
         provider: "{{ panos_provider }}"
