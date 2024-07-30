@@ -9,7 +9,7 @@
         #type: config
   # Rule config logs
   rules:
-    - name: "Handle Config Logs - Compliance "
+    - name: "Handle Config Logs - Compliance"
       condition: event.payload.type == "CONFIG" and event.payload.cmd == "set" and event.payload.result == "Succeeded" and event.payload.path is search ("rulebase security rules")
       actions:
         # Debug
